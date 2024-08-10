@@ -1,0 +1,72 @@
+@import "../../../../styles.scss";
+
+.nav{
+    display: flex;
+    overflow-y: auto;
+    white-space: nowrap;
+    position: relative;
+    flex-wrap: nowrap;
+    padding: 5px 0px; 
+    flex-direction: column;
+    padding:2rem 0;
+    height: calc(100dvh - 50px);
+    gap: .5rem;
+
+    .nav-item{
+        display: inline-block;
+        background-color: white;
+        backdrop-filter:brightness(1);
+        margin-inline: .5rem;
+        font-weight: 600;
+        transition: all .1s;
+        border-radius: .4rem;
+    
+        .nav-link{
+            text-decoration: none;
+            cursor: pointer;
+            color: black;
+            background-clip: border-box;
+            .route-name{
+                display: none;
+            }
+        }
+    
+        &:hover{
+            transform: scale(1.5);
+        }
+    }
+
+}
+
+
+// Slider Transition
+
+.slider {
+    background-color: #ffffff; /* Set a background color to see the effect */
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%; /* Initial width */
+    animation: slideInOut 1s ease-in-out forwards;
+    z-index: -1;
+}
+
+@keyframes slideInOut {
+    0% {
+        width: 0%;
+        height: 100%;
+        background-color: #87CEEB; /* Morning: sky blue */
+    }
+    50% {
+        width: 100%;
+        height: 100%;
+        background-color: $main-color; /* Evening: orange sunset */
+    }
+    100% {
+        width: 0%;
+        height: 100%;
+        background-color: #87CEEB; /* Morning: sky blue */
+    }
+}
+

@@ -1,0 +1,11 @@
+<nav>
+    <ul class="nav">
+        <li class="nav-item" *ngFor="let route of routeItems">
+            <a class="nav-link d-inline-flex flex-direction-column" (click)="slide()"
+            [routerLink]="route.path !== '' ? [route.path] : null" >
+                <span [ngClass]="[route.iconType]" [ngStyle]="route.style">{{route.icon}}</span><span class="route-name">{{route.title}}</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+<app-sider *ngIf="showSlide"></app-sider>
