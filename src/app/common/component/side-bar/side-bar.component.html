@@ -3,7 +3,7 @@
         <li class="nav-item" *ngFor="let route of routeItems">
             <a class="nav-link d-inline-flex flex-direction-column" (click)="slide()"
             [routerLink]="route.path !== '' ? [route.path] : null" >
-                <span [ngClass]="[route.iconType]" [ngStyle]="route.style">{{route.icon}}</span>
+                <i [ngClass]="[route.icon]" [ngStyle]="route.style"></i>
                 <span class="route-name"  [ngClass]="{'exp-name':expandSideBar}">{{route.title}}</span>
             </a>
         </li>

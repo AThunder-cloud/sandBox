@@ -78,6 +78,7 @@
 // Slider Transition
 
 .slider {
+    z-index: +2000;
     background-color: #ffffff; /* Set a background color to see the effect */
     position: fixed;
     top: 0;

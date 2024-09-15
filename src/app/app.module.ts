@@ -9,6 +9,10 @@ import { LoaderComponent } from './common/component/loader/loader.component';
 import { SideBarComponent, SliderElement } from './common/component/side-bar/side-bar.component';
 import { NotesComponent } from './feature/notes/notes.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   declarations: [
@@ -23,9 +27,14 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastModule,
+    BrowserAnimationsModule,
+    ButtonModule
   ],
-  providers: [],
+  providers: [
+    MessageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
