@@ -1,0 +1,1 @@
+export const iconColor = "MidnightBlue" // side bar icon color

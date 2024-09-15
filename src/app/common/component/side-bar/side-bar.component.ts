@@ -1,7 +1,8 @@
-import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Renderer2, ViewChild } from '@angular/core';
 import { routeModel } from '../../models/route.model';
 import { routeItemsList } from './routeItems.list';
 import { LoaderService } from '../../service/loader.service';
+import { CommonEventService } from '../../service/common-event.service';
 
 
 @Component({
@@ -12,11 +13,13 @@ import { LoaderService } from '../../service/loader.service';
 export class SideBarComponent {
   routeItems : routeModel[] = [];
   showSlide:boolean = false;
+  expandSideBar:boolean = false;
 
-  constructor(private loader:LoaderService,private renderer: Renderer2, private el: ElementRef){}
+  constructor(private cmevnt:CommonEventService){}
 
   ngOnInit(): void {
     this.routeItems = routeItemsList;
+    this.cmevnt.expandSideBar$.subscribe((evn:boolean) => {console.log("oninit",evn); this.expandSideBar = evn})
   }
 
   slide(){

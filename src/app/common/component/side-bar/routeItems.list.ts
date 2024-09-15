@@ -1,4 +1,5 @@
 import { routeModel } from "../../models/route.model";
+import { iconColor } from "../../gobal.const";
 
 export const routeItemsList : routeModel[] = [
     {
@@ -6,7 +7,7 @@ export const routeItemsList : routeModel[] = [
         icon:"edit_document",
         iconType: 'material-icons',
         path:'/',
-        style: { color: "chartreuse" },
+        style: { color: iconColor },
         
     },
     {
@@ -14,49 +15,49 @@ export const routeItemsList : routeModel[] = [
         icon:"water_drop",
         iconType: 'material-icons',
         path:"/feature/notes",
-        style: { color: "blue" },
+        style: { color: iconColor },
     },
     {
         title:"third",
         icon:"bolt",
         iconType: 'material-icons',
         path:'/',
-        style: { color: "yellow" },
+        style: { color: iconColor },
     },
     {
         title:"fourth",
         icon:"eco",
         iconType: 'material-icons',
         path:"/",
-        style: { color: "green" },
+        style: { color: iconColor },
     },
     {
         title:"fivth",
         icon:"severe_cold",
         iconType: 'material-icons',
         path:'/',
-        style: { color: "lightblue" },
+        style: { color: iconColor },
     },
     {
         title:"sixth",
         icon:"local_fire_department",
         iconType: 'material-icons',
         path:"/",
-        style: { color: "orange" },
+        style: { color: iconColor },
     },
     {
         title:"sevent",
         icon:"sports_esports",
         iconType: 'material-icons',
         path:"/feature/notes",
-        style: { color: "magenta" },
+        style: { color: iconColor },
     },
     {
         title:"eight",
         icon:"hub",
         iconType: 'material-icons',
         path:"/feature/notes",
-        style: { color: "purpule" },
+        style: { color: iconColor },
     }
 
     

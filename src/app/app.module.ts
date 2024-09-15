@@ -8,6 +8,7 @@ import { HomeComponent } from './feature/home/home.component';
 import { LoaderComponent } from './common/component/loader/loader.component';
 import { SideBarComponent, SliderElement } from './common/component/side-bar/side-bar.component';
 import { NotesComponent } from './feature/notes/notes.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { NotesComponent } from './feature/notes/notes.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 /*------- Variables Defination----------*/
-$main-color: #7da0ff;;
+$main-color: #7da0ff;
 
 :host {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -49,5 +49,7 @@ body {
   padding: 0;
 }
 .bg-sky{
-  background-color:$main-color;
+  background: #7da0ff;
+  background: -webkit-linear-gradient(to bottom, #3542b8,#4778ff, #7da0ff);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #3542b8,#4778ff, #7da0ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
