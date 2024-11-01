@@ -7,7 +7,7 @@ import { ToastService } from 'src/app/common/service/toast.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-
+  cards = new Array(30)
   constructor(private pt:ToastService){}
 
   show(){

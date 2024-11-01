@@ -2,6 +2,15 @@ import { routeModel } from "../../models/route.model";
 import { iconColor } from "../../gobal.const";
 
 export const routeItemsList : routeModel[] = [
+   
+    {
+        title:"Home",
+        icon: "pi pi-bookmark-fill", 
+        iconType: 'pi', 
+        path:'/',
+        style: { color: iconColor },
+        
+    },
     {
         title:"First",
         icon: "pi pi-pencil", 

@@ -1,1 +1,1 @@
-export const iconColor = "MidnightBlue" // side bar icon color
+export const iconColor = "DodgerBlue" // side bar icon color

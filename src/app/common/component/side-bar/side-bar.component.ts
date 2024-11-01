@@ -26,7 +26,7 @@ export class SideBarComponent {
     this.showSlide = true;
     setTimeout(() => {
       this.showSlide = false;
-    }, 1000);
+    }, 1200);
   }
 }
 

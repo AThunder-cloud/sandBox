@@ -1,6 +1,6 @@
 {
   "name": "sand-box",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -18,7 +18,8 @@
     "@angular/platform-browser": "^16.2.12",
     "@angular/platform-browser-dynamic": "^16.2.12",
     "@angular/router": "^16.2.12",
-    "bootstrap": "^5.3.3",
+    "localforage": "^1.10.0",
+    "primeflex": "^3.3.1",
     "primeicons": "^7.0.0",
     "primeng": "^16.3.1",
     "rxjs": "~7.8.0",

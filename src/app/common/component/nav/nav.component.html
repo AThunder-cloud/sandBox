@@ -1,12 +1,16 @@
-<nav class="navbar navbar-light bg-sky position-sticky top-0 z-3 justify-content-xs-between justify-content-md-between align-item-center row px-4">
-    <div class="col-auto ps-0">
-        <a class="hamburger-menu"(click)="expandTrigger()">
-            <img src="assets/images/icons/right_arrow.png" alt=">>" [ngClass]="{ 'openingSideBar':openSideBar }" class="openingSideBar">
+<nav class="flex align-items-center justify-content-between bg-sky position-sticky top-0 z-3 px-4 py-3">
+    <div class="flex align-items-center">
+        <a class="cursor-pointer hamburger-menu" (click)="expandTrigger()">
+            <img
+                src="assets/images/icons/right_arrow.png"
+                alt=">>"
+                [ngClass]="{ 'openingSideBar': openSideBar }"
+                class="transition-all openingSideBar"
+                style="width: 24px;"
+            />
         </a>
     </div>
-    <div class="col-auto">
-        <a class="navbar-brand fw-bold" href="#">
-            Sand Box
-        </a>
+    <div>
+        <a class="font-bold text-primary-800">Sand Box</a>
     </div>
 </nav>

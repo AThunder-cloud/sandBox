@@ -26,9 +26,10 @@ body {
   padding: 0;
 }
 .bg-sky{
-  background: #7da0ff;
-  background: -webkit-linear-gradient(to bottom, #3542b8,#4778ff, #7da0ff);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to bottom, #3542b8,#4778ff, #7da0ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  border-bottom: 1px solid var(--surface-border);
+  background-color: var(--topbar-sticky-bg);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
 }
 
 // Toast Style
