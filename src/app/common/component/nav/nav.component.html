@@ -10,7 +10,10 @@
             />
         </a>
     </div>
-    <div>
-        <a class="font-bold text-primary-800">Sand Box</a>
+    <div class="flex flex-row gap-4 text-base">
+        <div>
+            <i class="pi cursor-pointer" [ngClass]="{'pi-moon':isDarkMode,'pi-sun':!isDarkMode}" (click)="toggleDarkMode()"></i>
+        </div>
+        <span class="text-base font-semibold">Sand Box</span>
     </div>
 </nav>

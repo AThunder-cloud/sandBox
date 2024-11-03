@@ -17,6 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": ["localforage"],
             "outputPath": "dist/sand-box",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -27,10 +28,19 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "node_modules/primeng/resources/themes/soho-dark",
+                "output": "/assets/themes/lara-dark-blue"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/primeng/resources/themes/lara-light-blue",
+                "output": "/assets/themes/lara-light-blue"
+              }
             ],
             "styles": [
-              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css",
               "src/styles.scss"
@@ -43,12 +53,12 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "4mb"
                 },
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumError": "1mb"
                 }
               ],
               "outputHashing": "all"

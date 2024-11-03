@@ -14,7 +14,6 @@
 
     .nav-item{
         display: inline-block;
-        background-color: white;
         backdrop-filter:brightness(1);
         margin-inline: .5rem;
         font-weight: 600;
@@ -24,7 +23,6 @@
         .nav-link{
             text-decoration: none;
             cursor: pointer;
-            color: black;
             background-clip: border-box;
             gap: 15px;
             align-items: center;
@@ -79,30 +77,36 @@
 
 .slider {
     z-index: 2000;
-    background-color: #ffffff;
+    background-color: var(--slider-bg-start);
     position: fixed;
     top: 0;
     left: 0;
     height: 100%;
     width: 0%;
-    animation: slideInOut .8s ease-in-out forwards;
+    opacity: .5;
+    animation: slideInOut .5s ease-in-out forwards;
+}
+.slider::before{
+    content: "";
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(10px);
 }
 
 @keyframes slideInOut {
     0% {
         width: 0%;
-        background-color: #87CEEB; /* Start: Sky blue */
+        background-color: var(--slider-bg-start);
         backdrop-filter: blur(10px);
     }
     50% {
         width: 100%;
-        background-color: #ffb69c; /* Middle: Orange sunset */
+        background-color: var(--slider-bg-middle);
         backdrop-filter: blur(10px);
     }
     100% {
         width: 0%;
-        background-color: #87CEEB; /* End: Sky blue */
+        background-color: var(--slider-bg-end);
         backdrop-filter: blur(10px);
-        // opacity: 0; /* Fade out smoothly */
     }
 }

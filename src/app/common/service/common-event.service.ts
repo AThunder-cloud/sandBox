@@ -9,6 +9,9 @@ export class CommonEventService {
   private expandSideBarSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public expandSideBar$: Observable<boolean> = this.expandSideBarSubject.asObservable();
 
+  public isDarkModeSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public isDarkMode$: Observable<boolean> = this.isDarkModeSubject.asObservable();
+
   constructor() { }
 
   expand(){

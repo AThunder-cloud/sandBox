@@ -12,10 +12,10 @@ export const routeItemsList : routeModel[] = [
         
     },
     {
-        title:"First",
+        title:"Notes",
         icon: "pi pi-pencil", 
         iconType: 'pi', 
-        path:'/',
+        path:'/feature/notes',
         style: { color: iconColor },
         
     },
@@ -23,7 +23,7 @@ export const routeItemsList : routeModel[] = [
         title:"second",
         icon: "pi pi-apple",  
         iconType: 'pi',
-        path:"/feature/notes",
+        path:"/",
         style: { color: iconColor },
     },
     {

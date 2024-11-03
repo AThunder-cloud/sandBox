@@ -1,0 +1,42 @@
+::-webkit-scrollbar {
+    display: block;
+    width: 8px;/* Width of the scrollbar */
+    height: 8px;/* Height of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;/* Track color */
+    border-radius: 10px;/* Rounded edges for the track */
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);/* Scrollbar color */
+    border-radius: 10px;/* Rounded edges for the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb);/* Darker shade when hovered */
+    cursor: pointer;
+}
+.color-picker-card{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    gap: .5rem;
+    padding: 10px 30px;
+    border-radius:0 0 8px 8px;
+    transform: translate(-50%,100%);
+
+    .color-icon:hover{
+        transform: scale(1.2);
+    }
+}
+::ng-deep.p-card-footer {
+    padding: 0 0 0 0 !important;
+}
+::ng-deep.p-card-content{
+    padding:0 0 1rem 0 !important;
+}
+

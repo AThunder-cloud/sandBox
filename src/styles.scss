@@ -3,16 +3,21 @@
 /*------- Variables Defination----------*/
 $main-color: #7da0ff;
 
-:host {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: 14px;
-  color: #333;
-  box-sizing: border-box;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
 ::-webkit-scrollbar {
   display: none;
+}
+:root {
+  --slider-bg-start: #4e44ff; /* Start: Sky blue */
+  --slider-bg-middle: #3f35fe; /* Middle: Orange sunset */
+  --slider-bg-end: #87CEEB; /* End: Sky blue */
+  --scrollbar-thumb: #a3a3a3;
+}
+
+.dark-theme {
+  --slider-bg-start: #1a1a1a; /* Dark mode start color */
+  --slider-bg-middle: #2a2a2a; /* Dark mode middle color */
+  --slider-bg-end: #3a3a3a; /* Dark mode end color */
+  --scrollbar-thumb: #4e44ff;
 }
 html {
   height:fit-content;
@@ -24,6 +29,11 @@ body {
   height: 100dvh;
   margin: 0;
   padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 .bg-sky{
   border-bottom: 1px solid var(--surface-border);
@@ -42,4 +52,18 @@ body {
 .p-toast .p-toast-message .p-toast-message-content .p-icon:not(.p-toast-icon-close-icon) {
   width: 1.5rem !important;
   height: 1.5rem !important;
+}
+
+input:focus,input:focus-visible,textarea:focus,textarea:focus-visible{
+  outline: none !important;
+  box-shadow: none !important;
+}
+textarea{
+  outline: none !important;
+  box-shadow: none !important;
+  background-color: inherit !important;
+}
+
+.p-tooltip{
+  font-size: small;
 }

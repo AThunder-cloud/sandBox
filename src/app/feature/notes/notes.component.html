@@ -1,1 +1,63 @@
-<p>notes works!</p>
+<section>
+    <div class="flex justify-content-center">
+        <div class="xl:w-8 lg:w-8 md:w-10 sm:w-12 relative">
+            <form [formGroup]="createNoteFrom">
+                <p-card [style]="{'background-color':createNoteFrom.get('color')?.value}">
+                    <ng-template pTemplate="header">
+                        <input 
+                            class="w-full border-none font-bold" style="border-bottom-left-radius:0;border-bottom-right-radius: 0;"
+                            formControlName="title" name="title"
+                            type="text" maxlength="100"
+                            placeholder="Title" 
+                            pInputText 
+                        />
+                        <div class="w-full flex justify-content-center">
+                            <span class="text-base vertical-align-baseline">{{createNoteFrom.get('createdAt')?.value | date:'fullDate'}}</span>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="p-card-content">
+                        <textarea 
+                            rows="2" cols="30" class="w-full max-h-20rem overflow-y-visible border-none font-semibold" 
+                            formControlName="content" name="content" placeholder="Note.."
+                            pInputTextarea [autoResize]="true">
+                        </textarea>
+                        <!-- <div *ngIf="createNoteFrom.get('tags')?.value" class="flex flex-row py-2">
+                            <p-chip label="food" [style]="{'font-size': 'small'}" [removable]="true"></p-chip>
+                        </div> -->
+                    </ng-template>
+                    <ng-template pTemplate="footer" class="p-0">
+                        <div class="flex flex-row gap-4 justify-content-end">
+                            <i 
+                                class="pi pi-palette cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple
+                                pTooltip="Color Picker" tooltipPosition="top" 
+                                (click)="openColorPicker()">
+                            </i>
+                            <i 
+                                class="pi pi-bookmark-fill cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple
+                                pTooltip="Book Mark" tooltipPosition="top" 
+                                [ngClass]="{'text-blue-500': createNoteFrom.get('isPinned')?.value}"
+                                (click)="togglePinned()">
+                            </i>
+                            <i 
+                                class="pi pi-eraser cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple
+                                pTooltip="earse" tooltipPosition="top" 
+                                (click)="clearForm()">
+                            </i>
+                            <i 
+                                class="pi pi-save cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple
+                                pTooltip="Save" tooltipPosition="top" 
+                                (click)="submitForm()">
+                            </i>
+                        </div>
+                        <div pCard *ngIf="isColorPickerOpen" class="color-picker-card surface-100 shadow-2 cursor-pointer">
+                            <i *ngFor="let color of colorList" 
+                            class="pi pi-circle-fill color-icon" 
+                            [style]="{'color':color,'font-size':'1.2rem'}"
+                            (click)="changeColor(color)"></i>
+                        </div>
+                    </ng-template>
+                </p-card>
+            </form>
+        </div>
+    </div>
+</section>
