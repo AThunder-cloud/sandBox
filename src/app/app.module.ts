@@ -19,6 +19,7 @@ import { ColorPickerModule } from 'primeng/colorpicker';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ChipModule } from 'primeng/chip';
 import { RippleModule } from 'primeng/ripple';
+import { DialogModule} from 'primeng/dialog'
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +43,8 @@ import { RippleModule } from 'primeng/ripple';
     ColorPickerModule,
     InputTextareaModule,
     ChipModule,
-    RippleModule
+    RippleModule,
+    DialogModule
   ],
   providers: [
     MessageService

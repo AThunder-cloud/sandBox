@@ -1,26 +1,28 @@
 export interface Note {
-    id: string; // Unique identifier for the note
+    id?: number; // Unique identifier
     title: string; // Note title
-    content: string; // Main content of the note
-    createdAt: Date; // Creation date of the note
+    content: string; // Main content
+    createdAt: Date; // Creation date
     updatedAt: Date; // Last updated date
-    tags?: string[]; // Optional tags for categorizing the note
-    color?: string; // Optional color for visually differentiating notes
-    isPinned?: boolean; // Optional field to mark important notes as pinned
-    isArchived?: boolean; // Optional field to archive notes
-    reminders?: Date[]; // Optional array of reminder dates for the note
-    attachments?: string[]; // Array of URLs for any attached files or images
+    listId?: string; // ID of the NotesList it belongs to
+    tags?: string[]; // Optional tags
+    colorIndex: number; // Optional visual indicator
+    isPinned?: boolean; // Mark as pinned
+    isArchived?: boolean; // Archive status
+    reminders?: Date[]; // Reminder dates
+    attachments?: string[]; // Attached files or images
 }
+
 export interface NotesList {
-    id: string; // Unique identifier for the list
-    name: string; // Name of the list (e.g., "Work", "Personal")
-    description?: string; // Optional description of the list
-    notes: Note[]; // Array of notes in this list
-    createdAt: Date; // Creation date of the list
+    id: string; // Unique identifier
+    name: string; // Name of the list
+    description?: string; // Optional description
+    createdAt: Date; // Creation date
     updatedAt: Date; // Last updated date
-    color?: string; // Optional color to differentiate lists visually
-    isArchived?: boolean; // Optional field to archive the list
+    color?: string; // Optional visual indicator
+    isArchived?: boolean; // Archive status
 }
+
 export interface NoteResponse {
     success: boolean;
     message: string;

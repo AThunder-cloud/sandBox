@@ -11,6 +11,12 @@ $main-color: #7da0ff;
   --slider-bg-middle: #3f35fe; /* Middle: Orange sunset */
   --slider-bg-end: #87CEEB; /* End: Sky blue */
   --scrollbar-thumb: #a3a3a3;
+  --background-filter:#0000001d;
+  --border-color:#0000001d;
+  --70:rgba(0,0,0,0.7);
+  --80:rgba(0,0,0,0.8);
+  --90:rgba(0,0,0,0.9);
+  --100:rgba(0,0,0,1);
 }
 
 .dark-theme {
@@ -18,6 +24,12 @@ $main-color: #7da0ff;
   --slider-bg-middle: #2a2a2a; /* Dark mode middle color */
   --slider-bg-end: #3a3a3a; /* Dark mode end color */
   --scrollbar-thumb: #4e44ff;
+  --background-filter:#ffffff3b;
+  --border-color:#ffffff;
+  --70:rgba(255, 253, 255, 0.7);
+  --80:rgba(255, 255, 255, 0.8);
+  --90:rgba(255, 255, 255, 0.9);
+  --100:rgb(255, 255, 255);
 }
 html {
   height:fit-content;
@@ -66,4 +78,17 @@ textarea{
 
 .p-tooltip{
   font-size: small;
+}
+
+.black70{
+  color: var(--70);
+}
+.black80{
+  color: var(--80);
+}
+.black90{
+  color: var(--90);
+}
+.black100{
+  color: var(--100);
 }

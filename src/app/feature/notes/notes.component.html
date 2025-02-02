@@ -1,23 +1,30 @@
 <section>
     <div class="flex justify-content-center">
-        <div class="xl:w-8 lg:w-8 md:w-10 sm:w-12 relative">
+        <div class="xl:w-8 lg:w-8 md:w-10 sm:w-12 flex-grow-1 md:flex-grow-0 relative">
             <form [formGroup]="createNoteFrom">
-                <p-card [style]="{'background-color':createNoteFrom.get('color')?.value}">
+                <p-card [style]="{'background-color':this.colorList[createNoteFrom.get('colorIndex')?.value]}">
                     <ng-template pTemplate="header">
                         <input 
-                            class="w-full border-none font-bold" style="border-bottom-left-radius:0;border-bottom-right-radius: 0;"
+                            class="w-full border-none font-semibold black90" style="border-bottom-left-radius:0;border-bottom-right-radius: 0;"
                             formControlName="title" name="title"
                             type="text" maxlength="100"
                             placeholder="Title" 
                             pInputText 
                         />
-                        <div class="w-full flex justify-content-center">
-                            <span class="text-base vertical-align-baseline">{{createNoteFrom.get('createdAt')?.value | date:'fullDate'}}</span>
+                        <div class="w-full flex justify-content-start px-2">
+                            <span class="text-sm text-600 vertical-align-baseline m-1">
+                                {{createNoteFrom.get('createdAt')?.value | date:"EEE MMM dd, yyyy 'at' hh:mm a"}}
+                                <ng-container *ngIf="createNoteFrom.get('content')?.value?.trim()?.length > 0">
+                                    |
+                                    {{createNoteFrom.get('content')?.value?.trim()?.length}} 
+                                    characters
+                                </ng-container>
+                            </span>
                         </div>
                     </ng-template>
-                    <ng-template pTemplate="p-card-content">
+                    <ng-template pTemplate="p-card-content px-0">
                         <textarea 
-                            rows="2" cols="30" class="w-full max-h-20rem overflow-y-visible border-none font-semibold" 
+                            rows="2" cols="30" class="w-full max-h-20rem overflow-y-visible border-none black90" 
                             formControlName="content" name="content" placeholder="Note.."
                             pInputTextarea [autoResize]="true">
                         </textarea>
@@ -26,38 +33,144 @@
                         </div> -->
                     </ng-template>
                     <ng-template pTemplate="footer" class="p-0">
-                        <div class="flex flex-row gap-4 justify-content-end">
+                        <div class="flex flex-row gap-4 justify-content-end mx-3">
+                            <div pCard *ngIf="isColorPickerOpen" class="cursor-pointer flex align-items-center gap-2">
+                                <span *ngFor="let color of colorList;let i= index" class="circle-color-icon p-ripple"
+                                    [style]="{'background-color':color == '' ? 'black' : color }" (click)="changeColor(i,'createNoteFrom')"></span>
+                            </div>
                             <i 
                                 class="pi pi-palette cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple
                                 pTooltip="Color Picker" tooltipPosition="top" 
-                                (click)="openColorPicker()">
+                                (click)="openColorPicker('createNoteFrom')">
                             </i>
                             <i 
                                 class="pi pi-bookmark-fill cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple
                                 pTooltip="Book Mark" tooltipPosition="top" 
                                 [ngClass]="{'text-blue-500': createNoteFrom.get('isPinned')?.value}"
-                                (click)="togglePinned()">
+                                (click)="togglePinned(createNoteFrom)">
                             </i>
                             <i 
                                 class="pi pi-eraser cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple
                                 pTooltip="earse" tooltipPosition="top" 
-                                (click)="clearForm()">
+                                (click)="clearForm(createNoteFrom)">
                             </i>
                             <i 
                                 class="pi pi-save cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple
                                 pTooltip="Save" tooltipPosition="top" 
-                                (click)="submitForm()">
+                                (click)="submitForm('save')">
                             </i>
                         </div>
-                        <div pCard *ngIf="isColorPickerOpen" class="color-picker-card surface-100 shadow-2 cursor-pointer">
-                            <i *ngFor="let color of colorList" 
+                        <!-- <div pCard *ngIf="isColorPickerOpen" class="color-picker-card surface-100 shadow-2 cursor-pointer">
+                            <i *ngFor="let color of colorList;let i= index" 
                             class="pi pi-circle-fill color-icon" 
                             [style]="{'color':color,'font-size':'1.2rem'}"
-                            (click)="changeColor(color)"></i>
-                        </div>
+                            (click)="changeColor(i,'createNoteFrom')"></i>
+                        </div> -->
                     </ng-template>
                 </p-card>
             </form>
         </div>
     </div>
+</section>
+<section class="mt-4">
+    <div class="grid justify-content-center">
+        <span class="flex justify-content-start col-12 md:col-6">
+            <form [formGroup]="searchForm" class="w-full relative">
+                <input type="text" class="w-full" pInputText placeholder="Midnight.." formControlName="query"/>
+                <i class="pi pi-search cursor-pointer p-ripple m-1 search-icon" 
+                style="font-size: 1.2rem" pRipple pTooltip="search" tooltipPosition="top"></i>
+            </form>
+        </span>
+    </div>
+</section>
+<section class="mt-4 flex justify-content-center flex-column">
+    <!-- <div class="flex justify-content-start gap-3">
+        <div class="col-12 sm:col-6 lg:col-4 xl:col-3" *ngFor="let note of notesList">
+            <p-card class="note-card" [style]="{ backgroundColor: this.colorList[note.colorIndex]}">
+                <ng-template pTemplate="header">
+                    <h3 class="note-title">{{ note.title }}</h3>
+                </ng-template>
+                <p class="note-content">{{ note.content | slice:0:50 }}</p>
+                <div *ngIf="note?.tags" class="tags">
+                    <span *ngFor="let tag of note.tags" class="tag">{{ tag }}</span>
+                </div>
+                <ng-template pTemplate="footer">
+                    <div class="footer">
+                        <span class="date">Created: {{ note.createdAt | date: 'short' }}</span>
+                        <span class="date">Updated: {{ note.updatedAt | date: 'short' }}</span>
+                    </div>
+                </ng-template>
+            </p-card>
+        </div>
+    </div> -->
+    <div class="grid gap-0">
+        <div class="col-12 sm:col-6 lg:col-3 min-width-10rem" *ngFor="let note of notesList">
+            <p-card [style]="{ backgroundColor: this.colorList[note.colorIndex]}" (click)="openNote(note)">
+                <ng-template pTemplate="header">
+                    <h3 class="note-title black90">{{ note.title| slice:0:50 }}
+                        <span class="book-marker-container" *ngIf="note?.isPinned">
+                            <span class="book-marker"></span>
+                        </span>
+                    </h3>
+                </ng-template>
+                <p class="note-content black80">{{ note.content | slice:0:130 }}</p>
+                <ng-template pTemplate="footer" *ngIf="note?.tags">
+                    <div class="tags">
+                        <span *ngFor="let tag of note.tags" class="tag">{{ tag }}</span>
+                    </div>
+                </ng-template>
+            </p-card>
+        </div>
+    </div>
+</section>
+<section>
+    <!-- All Dialogs -->
+    <p-dialog [(visible)]="noteDialog" [modal]="true" [breakpoints]="{'1199px':'75vw','575px':'90vw'}" [maximizable]="true"
+        [style]="{width:'50rem',background:this.selectedColor}"
+        [draggable]="false">
+        <form [formGroup]="editNoteFrom" class="flex flex-column justify-content-between h-full flex-grow-1 md:flex-grow-0">
+            <div class="flex flex-column h-full flex-grow-1 md:flex-grow-0 ">
+                <div>
+                    <input class="w-full border-none font-bold black70 px-0" style="border-bottom-left-radius:0;border-bottom-right-radius: 0;"
+                    formControlName="title" name="title" type="text" maxlength="100" placeholder="Title" pInputText />
+                </div>
+                <div class="black70">
+                    {{editNoteFrom.get('createdAt')?.value | date:'short'}}
+                    <ng-container *ngIf="editNoteFrom.get('content')?.value?.trim()?.length > 0">
+                        |
+                        {{editNoteFrom.get('content')?.value?.trim()?.length}} 
+                        characters
+                    </ng-container>
+                </div>
+                <div class="flex flex-column h-full flex-grow-1 md:flex-grow-0 ">
+                    <textarea rows="50" cols="30" class="flex flex-column h-full flex-grow-1 w-full h-20rem max-h-full overflow-y-visible border-none black90 px-0"
+                    formControlName="content" name="content" placeholder="Note.." pInputTextarea [autoResize]="true">
+                    </textarea>
+                </div>
+            </div>
+            <div class="flex flex-row gap-4 justify-content-end mx-3">
+                <div pCard *ngIf="isColorPicker2Open" class="cursor-pointer flex align-items-center gap-2">
+                    <span *ngFor="let color of colorList;let i= index" class="circle-color-icon p-ripple"
+                        [style]="{'background-color':color }" (click)="changeColor(i,'editNoteForm')"></span>
+                </div>
+                <i class="pi pi-palette cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple
+                    pTooltip="Color Picker" tooltipPosition="top" (click)="openColorPicker('editNoteFrom')">
+                </i>
+                <i class="pi pi-bookmark-fill cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple
+                    pTooltip="Book Mark" tooltipPosition="top"
+                    [ngClass]="{'text-blue-500': editNoteFrom.get('isPinned')?.value}" (click)="togglePinned(editNoteFrom)">
+                </i>
+                <i class="pi pi-eraser cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple pTooltip="earse"
+                    tooltipPosition="top" (click)="clearForm(editNoteFrom)">
+                </i>
+                <i class="pi pi-save cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple pTooltip="Save"
+                    tooltipPosition="top" (click)="submitForm('update')">
+                </i>
+                <i class="pi pi-trash cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple pTooltip="Delete"
+                    tooltipPosition="top" (click)="delete(editNoteFrom.get('id')?.value)">
+                </i>
+            </div>
+        </form>
+    </p-dialog>
+    
 </section>

@@ -11,7 +11,7 @@ export class NavComponent implements OnInit{
   isDarkMode : boolean = false;
   constructor(private cmevnt:CommonEventService){
     const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    // this.isDarkMode = prefersDarkScheme.matches;
+    this.isDarkMode = prefersDarkScheme.matches;
     this.toggleDarkMode(); // Apply the initial theme based on preference
   }
   ngOnInit(): void { 

@@ -31,12 +31,12 @@
               "src/assets",
               {
                 "glob": "**/*",
-                "input": "node_modules/primeng/resources/themes/soho-dark",
+                "input": "node_modules/primeng/resources/themes/viva-dark",
                 "output": "/assets/themes/lara-dark-blue"
               },
               {
                 "glob": "**/*",
-                "input": "node_modules/primeng/resources/themes/lara-light-blue",
+                "input": "node_modules/primeng/resources/themes/viva-light",
                 "output": "/assets/themes/lara-light-blue"
               }
             ],

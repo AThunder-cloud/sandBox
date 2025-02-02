@@ -1,0 +1,60 @@
+[
+  {
+    "id":1,
+    "title": "Meeting Notes",
+    "content": "Discuss project timeline and deliverables.",
+    "createdAt": "2024-12-20T10:15:30.000Z",
+    "updatedAt": "2024-12-21T08:45:00.000Z",
+    "listId": "list123",
+    "tags": ["meeting", "project", "important"],
+    "colorIndex":1,
+    "isPinned": true,
+    "isArchived": false,
+    "reminders": ["2024-12-22T09:00:00.000Z", "2024-12-23T15:30:00.000Z"],
+    "attachments": ["project_timeline.pdf", "meeting_agenda.docx"]
+  },
+  {
+    "id":2,
+    "title": "Personal Tasks No body knows fkfkmfkmfkmf mknnfns",
+    "content": "Grocery shopping and laundry.",
+    "createdAt": "2024-12-19T09:00:00.000Z",
+    "updatedAt": "2024-12-19T09:30:00.000Z",
+    "tags": ["personal", "chores"],
+    "colorIndex":2,
+    "isPinned": false,
+    "isArchived": false
+  },
+  {
+    "id":3,
+    "title": "Personal Tasks",
+    "content": "In Angular, you can use the built-in ngFor directive's index, first, and last properties to traverse and track the first and last elements of a list. Here's how you can achieve this",
+    "createdAt": "2024-12-19T09:00:00.000Z",
+    "updatedAt": "2024-12-19T09:30:00.000Z",
+    "tags": ["personal", "chores"],
+    "colorIndex":3,
+    "isPinned": false,
+    "isArchived": false
+  },
+  {
+    "id":4,
+    "title": "Personal Tasks",
+    "content": "In Angular, you can use the built-in ngFor directive's index, first, and last properties to traverse and track the first and last elements of a list. Here's how you can achieve this",
+    "createdAt": "2024-12-19T09:00:00.000Z",
+    "updatedAt": "2024-12-19T09:30:00.000Z",
+    "tags": ["personal", "chores"],
+    "colorIndex":4,
+    "isPinned": false,
+    "isArchived": false
+  },
+  {
+    "id":5,
+    "title": "Personal Tasks No body knows fkfkmfkmfkmf",
+    "content": "In Angular, you can use the built-in ngFor directive's index, first, and last properties to traverse and track the first and last elements of a list. Here's how you can achieve this",
+    "createdAt": "2024-12-19T09:00:00.000Z",
+    "updatedAt": "2024-12-19T09:30:00.000Z",
+    "tags": ["personal", "chores"],
+    "colorIndex":5,
+    "isPinned": false,
+    "isArchived": false
+  }
+]
