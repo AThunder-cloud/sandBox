@@ -120,9 +120,21 @@ export class NotesComponent implements OnInit , OnDestroy{
   changeColor(color:number,of:string) {
     if('createNoteFrom' === of){
       this.createNoteFrom.get("colorIndex")?.setValue(color);  
+      setTimeout(() => {
+        const dialogEl = document.querySelector('.p-card.p-component');
+        if (dialogEl) {
+          (dialogEl as HTMLElement).style.background = this.colorList[color];
+        }
+      }, 0);
     }else{
       this.selectedColor = this.colorList[color];
       this.editNoteFrom.get("colorIndex")?.setValue(color);  
+      setTimeout(() => {
+        const dialogEl = document.querySelector('.p-dialog.p-component');
+        if (dialogEl) {
+          (dialogEl as HTMLElement).style.background = this.selectedColor;
+        }
+      }, 0);
     }
   }
   clearForm(form:FormGroup){
@@ -136,6 +148,9 @@ export class NotesComponent implements OnInit , OnDestroy{
     this.searchForm.get("query")?.valueChanges
     .pipe(takeUntil(this.ngUnsubscribe),debounceTime(1000))
     .subscribe((val:string)=>{
+      if(val === ""){
+        this.getAllNotes();
+      }
       this.notesList = this.notesList.filter((note:Note) => 
         note.content.toLowerCase().includes(val.toLowerCase())|| 
         note.title.toLowerCase().includes(val.toLowerCase()))
