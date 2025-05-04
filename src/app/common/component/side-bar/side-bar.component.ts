@@ -3,6 +3,7 @@ import { routeModel } from '../../models/route.model';
 import { routeItemsList } from './routeItems.list';
 import { LoaderService } from '../../service/loader.service';
 import { CommonEventService } from '../../service/common-event.service';
+import { AuthService } from '../../service/auth.service';
 
 
 @Component({
@@ -15,11 +16,11 @@ export class SideBarComponent {
   showSlide:boolean = false;
   expandSideBar:boolean = false;
 
-  constructor(private cmevnt:CommonEventService){}
+  constructor(private cmevnt:CommonEventService,public authService:AuthService){}
 
   ngOnInit(): void {
     this.routeItems = routeItemsList;
-    this.cmevnt.expandSideBar$.subscribe((evn:boolean) => {console.log("oninit",evn); this.expandSideBar = evn})
+    this.cmevnt.expandSideBar$.subscribe((evn:boolean) => {this.expandSideBar = evn})
   }
 
   slide(){
@@ -27,6 +28,9 @@ export class SideBarComponent {
     setTimeout(() => {
       this.showSlide = false;
     }, 1200);
+  }
+  logout() {
+    this.authService.logout();
   }
 }
 

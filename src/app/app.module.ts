@@ -19,7 +19,16 @@ import { ColorPickerModule } from 'primeng/colorpicker';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ChipModule } from 'primeng/chip';
 import { RippleModule } from 'primeng/ripple';
-import { DialogModule} from 'primeng/dialog'
+import { DialogModule} from 'primeng/dialog';
+import { LoginComponent } from './common/component/login/login.component'
+import { AvatarModule } from 'primeng/avatar';
+import { PaginatorModule } from 'primeng/paginator';
+import { AccordionModule } from 'primeng/accordion';
+// Firebase modules
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { environment } from '../environment/environment'; // Ensure this file exists
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +37,8 @@ import { DialogModule} from 'primeng/dialog'
     HomeComponent,
     LoaderComponent,
     SideBarComponent,
-    SliderElement
+    SliderElement,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +54,13 @@ import { DialogModule} from 'primeng/dialog'
     InputTextareaModule,
     ChipModule,
     RippleModule,
-    DialogModule
+    DialogModule,
+    AvatarModule,
+    PaginatorModule,
+    AccordionModule,
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    // Provide Auth Service
+    provideAuth(() => getAuth()),
   ],
   providers: [
     MessageService

@@ -8,7 +8,7 @@ import { CommonEventService } from '../../service/common-event.service';
 })
 export class NavComponent implements OnInit{
   openSideBar:boolean = false;
-  isDarkMode : boolean = false;
+  isDarkMode : boolean = true;
   constructor(private cmevnt:CommonEventService){
     const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
     this.isDarkMode = prefersDarkScheme.matches;

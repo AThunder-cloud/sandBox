@@ -4,7 +4,7 @@ export interface Note {
     content: string; // Main content
     createdAt: Date; // Creation date
     updatedAt: Date; // Last updated date
-    listId?: string; // ID of the NotesList it belongs to
+    listId?: number; // ID of the Collection it belongs to
     tags?: string[]; // Optional tags
     colorIndex: number; // Optional visual indicator
     isPinned?: boolean; // Mark as pinned
@@ -13,14 +13,10 @@ export interface Note {
     attachments?: string[]; // Attached files or images
 }
 
-export interface NotesList {
-    id: string; // Unique identifier
+export interface Collection {
+    id?: number; // Unique identifier
     name: string; // Name of the list
     description?: string; // Optional description
-    createdAt: Date; // Creation date
-    updatedAt: Date; // Last updated date
-    color?: string; // Optional visual indicator
-    isArchived?: boolean; // Archive status
 }
 
 export interface NoteResponse {

@@ -1,15 +1,15 @@
 import Dexie, { Table } from 'dexie';
-import { Note, NotesList } from './models/notes.model';
+import { Note, Collection } from './models/notes.model';
 
 class NotesAppDB extends Dexie {
     notes!: Table<Note, number>;
-    notesLists!: Table<NotesList, string>;
+    collections!: Table<Collection, number>;
   
     constructor() {
       super('NotesAppDB');
-      this.version(3).stores({
+      this.version(1).stores({
         notes: '++id, title, createdAt, updatedAt, tags, listId', // Indexed fields
-        notesLists: '++id, name, createdAt, updatedAt', // Indexed fields for lists
+        collections: '++id, name', // Indexed fields for lists
       });
     }
   }

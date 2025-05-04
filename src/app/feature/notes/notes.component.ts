@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Note, NotesList } from 'src/app/common/models/notes.model';
+import { Note, Collection } from 'src/app/common/models/notes.model';
 import { CommonEventService } from 'src/app/common/service/common-event.service';
 import { NotesAppDBService } from 'src/app/common/service/notes-app-db.service';
 import { UtilityService } from 'src/app/common/service/utility.service';
@@ -8,6 +8,8 @@ import notesData from '../../common/models/notes.json';
 import { ToastService } from 'src/app/common/service/toast.service';
 import { Subject, takeUntil, debounceTime } from 'rxjs';
 import { db } from 'src/app/common/db';
+import { FireBaseService } from 'src/app/common/service/fire-base.service';
+import { PaginatorState } from 'primeng/paginator';
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
@@ -39,7 +41,8 @@ export class NotesComponent implements OnInit , OnDestroy{
     "#FF1493"   // Deep Pink
   ];
   notesList : Note[] = [];
-  notesGropList : NotesList[] = [];
+  collectionList : Collection[] = [];
+  paginatedCollectionList: any[] = [];
 
   createNoteFrom:FormGroup = new FormGroup({})
   editNoteFrom:FormGroup = new FormGroup({})
@@ -47,13 +50,20 @@ export class NotesComponent implements OnInit , OnDestroy{
   noteDialog:boolean = false;
   selectedNote?:Note;
   selectedColor:string="";
+  addCollectionDialog:boolean = false;
+  createNewCollection:FormGroup = new FormGroup({}) 
   private ngUnsubscribe = new Subject<void>();
+  fireStore:FireBaseService = inject(FireBaseService);
+  firstCollectionPage: number = 0;
+  currentCollectionRow: number = 10;
+  accordionActiveIndex: number | number[] = 0;
   constructor(
     private utility:UtilityService,private fb:FormBuilder,
     private cmevnt:CommonEventService,private noteDB:NotesAppDBService,
     private toast:ToastService){
     this.initForms();
     this.getAllNotes();
+    this.getAllCollection();
   }
 
   initForms(){
@@ -86,12 +96,23 @@ export class NotesComponent implements OnInit , OnDestroy{
       query:[],
       filters:[[]],
     });
+    this.createNewCollection = this.fb.group({
+      name: ['',[Validators.required]], // name for the collection
+      description: [''], // description for collection
+    })
   }
   async getAllNotes(){
     const data = await this.noteDB.getAllNotes();
     this.notesList = [...data];
   }
+  async getAllCollection(){
+    const data = await this.noteDB.getAllColletion();
+    const all :Collection={id:0 , name:'ALL',description:'Represent all the notes'}
+    this.collectionList = [all,...data];
+    this.updatePaginatedCollections();
+  }
   ngOnInit(): void {
+    this.fireStore.addNote();
     let data = localStorage.getItem("createNoteFrom")
     if(data){
       this.createNoteFrom.patchValue(JSON.parse(data))
@@ -162,7 +183,6 @@ export class NotesComponent implements OnInit , OnDestroy{
     this.editNoteFrom.patchValue(note)
   }
   async submitForm(action:string){
-    console.log(this.createNoteFrom,this.editNoteFrom)
     if(this.createNoteFrom.invalid){
       this.changeColor(0,'createNoteFrom');
     }
@@ -178,7 +198,6 @@ export class NotesComponent implements OnInit , OnDestroy{
         this.toast.showError("Error", "Failed to saved Note");
         return;
       }
-      console.log(newNote)
       this.clearForm(this.createNoteFrom);
       this.toast.showSuccess("Sucess", "Note saved");
       this.getAllNotes();
@@ -196,6 +215,53 @@ export class NotesComponent implements OnInit , OnDestroy{
       this.toast.showError("Error", "Empty Note");
     }
   }
+  async addCollection(){
+    if(this.createNewCollection.invalid){
+      this.toast.showError("Error", "Fill the ");
+      return;
+    }
+    if(this.createNewCollection.valid){
+      const collection : Collection = {
+        name:this.createNewCollection.get('name')?.value.trim(),
+        description:this.createNewCollection.get('description')?.value.trim(),
+      }
+      const isCollectionPresent = this.collectionList.find((value)=>value.name==collection.name);
+      if(isCollectionPresent){
+        this.clearForm(this.createNewCollection);
+        this.toast.showInfo("Info", `Collection "${collection.name}" already exists`);
+        return;
+      }
+      const id = await this.noteDB.addColletionWithDexie(collection);
+      if(typeof id != 'number'){
+        this.toast.showError("Error", "Failed to create colletion");
+        return;
+      }
+      this.clearForm(this.createNewCollection);
+      this.toast.showSuccess("Sucess", "Collection created");
+      this.getAllCollection();
+    }
+  }
+  onCollectionSelect(collection:Collection){
+  
+  }
+  deleteCollection(collection:Collection){
+    if(collection?.id){
+      this.noteDB.deleteCollectionById(collection.id);
+      this.clearForm(this.createNewCollection);
+      this.toast.showSuccess("Sucess", "Collection deleted");
+      this.getAllCollection();
+    }
+  }
+  onPageChange(event: PaginatorState) {
+    this.firstCollectionPage = event.first ?? 0;
+    this.currentCollectionRow = event.rows ?? 10;
+    this.updatePaginatedCollections();
+  }
+  updatePaginatedCollections() {
+    const start = this.firstCollectionPage;
+    const end = start + this.currentCollectionRow;
+    this.paginatedCollectionList = this.collectionList.slice(start, end);
+  }
   delete(id:number){
     this.noteDialog = false;
     this.clearForm(this.editNoteFrom);
@@ -208,5 +274,4 @@ export class NotesComponent implements OnInit , OnDestroy{
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
-  
 }

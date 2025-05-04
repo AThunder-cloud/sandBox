@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { db } from '../db';
-import { Note, NotesList } from '../models/notes.model';
+import { Note, Collection } from '../models/notes.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +17,15 @@ export class NotesAppDBService {
     return db.notes.toArray();
   }
   
-  async addNotesListWithDexie(list: NotesList): Promise<void> {
-    await db.notesLists.add(list);
+  async addColletionWithDexie(collection: Omit<Collection, 'id'>): Promise<number> {
+    return await db.collections.add(collection);
   }
   
-  async getAllNotesLists(): Promise<NotesList[]> {
-    return db.notesLists.toArray();
+  async getAllColletion(): Promise<Collection[]> {
+    return db.collections.toArray();
+  }
+  async deleteCollectionById(id:number): Promise<void> {
+    await db.collections.delete(id);
   }
 
   async updateNoteById(id:number,note:Note): Promise<void> {

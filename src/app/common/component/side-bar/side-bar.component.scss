@@ -30,11 +30,12 @@
             .route-name{
                 font-size: medium;
                 font-weight: normal;
+                color: var(--100);
             }
         }
     
         &:hover{
-            transform: scale(1.2);
+            transform: scale(1.05);
         }
     }
 
@@ -58,6 +59,10 @@
 }
 @media (max-width:470px){
     .nav{
+        margin-left: -100px;
+        box-shadow: none;
+    }
+    .logout{
         margin-left: -100px;
         box-shadow: none;
     }
@@ -109,4 +114,39 @@
         background-color: var(--slider-bg-end);
         backdrop-filter: blur(10px);
     }
+}
+
+.logout{
+    display: flex;
+    white-space: nowrap;
+    position: relative;
+    flex-wrap: nowrap;
+    flex-direction: column;
+
+    .nav-item{
+        display: inline-block;
+        backdrop-filter:brightness(1);
+        margin-inline: .5rem;
+        font-weight: 600;
+        transition: all .1s;
+        border-radius: .4rem;
+    
+        .nav-link{
+            text-decoration: none;
+            cursor: pointer;
+            background-clip: border-box;
+            gap: 15px;
+            align-items: center;
+
+            .route-name{
+                font-size: medium;
+                font-weight: normal;
+            }
+        }
+    
+        &:hover{
+            transform: scale(1.05);
+        }
+    }
+
 }

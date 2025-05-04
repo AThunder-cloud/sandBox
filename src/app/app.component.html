@@ -1,4 +1,4 @@
-<section class="container-fluid px-0">
+<section class="container-fluid px-0" *ngIf="authService.user$ | async as user; else loginTemplate">
     <div class="position-fixed top-0">
         <app-nav></app-nav>
     </div>
@@ -12,7 +12,7 @@
         ></p-toast>
         <!-- Responsive Toast -->
         <div class="side-bar py-4">
-            <app-side-bar></app-side-bar>
+            <app-side-bar class="flex"></app-side-bar>
         </div>
         <div class="active-page pt-8 pb-4" (click)="collapse()">
             <router-outlet></router-outlet>
@@ -22,3 +22,14 @@
         <app-loader></app-loader>
     </div>
 </section>
+<ng-template #loginTemplate>
+    <!-- Responsive Toast -->
+    <p-toast
+    [breakpoints]="{
+        '575px': {width: '80%', right: '0', left: '18%'},
+        '470px': {width: '80%', right: '0', left: '18%'}
+        }"
+    ></p-toast>
+    <!-- Responsive Toast -->
+    <router-outlet></router-outlet>
+</ng-template>
