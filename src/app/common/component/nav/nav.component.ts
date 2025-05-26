@@ -12,7 +12,7 @@ export class NavComponent implements OnInit{
   constructor(private cmevnt:CommonEventService){
     const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
     this.isDarkMode = prefersDarkScheme.matches;
-    this.toggleDarkMode(); // Apply the initial theme based on preference
+    this.applyTheme(this.isDarkMode); // Apply the initial theme based on preference
   }
   ngOnInit(): void { 
 
@@ -28,18 +28,21 @@ export class NavComponent implements OnInit{
   
   toggleDarkMode() {
     this.isDarkMode = !this.isDarkMode;
-    this.cmevnt.isDarkModeSubject.next(this.isDarkMode);
+    this.applyTheme(this.isDarkMode);
+  }
+  applyTheme(isDark: boolean) {
+    this.cmevnt.isDarkModeSubject.next(isDark);
     const darkThemeLink = document.getElementById('dark-theme-style') as HTMLLinkElement;
     const lightThemeLink = document.getElementById('light-theme-style') as HTMLLinkElement;
 
-    if (this.isDarkMode) {
-        darkThemeLink.disabled = false;
-        lightThemeLink.disabled = true;
-        document.body.classList.add('dark-theme'); // Add dark theme class
+    if (isDark) {
+      if (darkThemeLink) darkThemeLink.disabled = false;
+      if (lightThemeLink) lightThemeLink.disabled = true;
+      document.body.classList.add('dark-theme');
     } else {
-        darkThemeLink.disabled = true;
-        lightThemeLink.disabled = false;
-        document.body.classList.remove('dark-theme'); // Remove dark theme class
+      if (darkThemeLink) darkThemeLink.disabled = true;
+      if (lightThemeLink) lightThemeLink.disabled = false;
+      document.body.classList.remove('dark-theme');
     }
   }
  
