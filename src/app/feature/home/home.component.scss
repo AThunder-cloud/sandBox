@@ -1,0 +1,15 @@
+.profile-card {
+    ::ng-deep .p-chip {
+        padding: .5rem 1rem !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .profile-card {
+        ::ng-deep .p-chip {
+            font-size: small !important;
+            padding: .25rem 0.5rem !important;
+        }
+    }
+    
+}

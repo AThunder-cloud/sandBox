@@ -5,7 +5,7 @@ export const routeItemsList : routeModel[] = [
    
     {
         title:"Home",
-        icon: "pi pi-bookmark-fill", 
+        icon: "pi pi-home", 
         iconType: 'pi', 
         path:'/',
         style: { color: iconColor },
@@ -18,49 +18,6 @@ export const routeItemsList : routeModel[] = [
         path:'/feature/notes',
         style: { color: iconColor },
         
-    },
-    {
-        title:"second",
-        icon: "pi pi-apple",  
-        iconType: 'pi',
-        path:"/",
-        style: { color: iconColor },
-    },
-    {
-        title:"third",
-        icon: "pi pi-bolt",
-        iconType: 'pi',
-        path:'/',
-        style: { color: iconColor },
-    },
-    {
-        title:"fourth",
-        icon:"pi pi-send",
-        iconType: 'pi',
-        path:"/",
-        style: { color: iconColor },
-    },
-    {
-        title:"fivth",
-        icon:"pi pi-code",
-        iconType: 'pi',
-        path:'/',
-        style: { color: iconColor },
-    },
-    {
-        title:"sixth",
-        icon:"pi pi-discord",
-        iconType: 'pi',
-        path:"/",
-        style: { color: iconColor },
-    },
-    {
-        title:"seven",
-        icon:"pi pi-instagram",
-        iconType: 'pi',
-        path:"/feature/notes",
-        style: { color: iconColor },
     }
-
     
 ]

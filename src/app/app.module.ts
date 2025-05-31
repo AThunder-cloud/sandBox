@@ -24,6 +24,7 @@ import { LoginComponent } from './common/component/login/login.component'
 import { AvatarModule } from 'primeng/avatar';
 import { PaginatorModule } from 'primeng/paginator';
 import { AccordionModule } from 'primeng/accordion';
+import { BadgeModule } from 'primeng/badge';
 // Firebase modules
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
@@ -58,6 +59,7 @@ import { environment } from '../environment/environment'; // Ensure this file ex
     AvatarModule,
     PaginatorModule,
     AccordionModule,
+    BadgeModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     // Provide Auth Service
     provideAuth(() => getAuth()),

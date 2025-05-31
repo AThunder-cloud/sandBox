@@ -3,24 +3,40 @@
         <div class="col-12 border-round p-4">
             <section class="container-fluid">
                 <main>
-                    <p-card>
+                    <p-card class="profile-card">
                         <div class="grid gap-2">
-                            <div class="col-1">
+                            <div class="col-12 text-center flex align-items-center justify-content-center">
                                 <p-avatar
-                                [image]="user.photoURL || 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'"
+                                [image]="user.photoURL || 'assets/images/icons/bird.png'"
                                 size="xlarge" shape="circle"></p-avatar>
                             </div>
-                            <div class="col-10 flex flex-column">
-                                <h2>{{ user.displayName || 'Anonymous' }}</h2>
-                                <div class="flex gap-1 flex-column ">
-                                    <p-chip icon="pi pi-at" [label]=" user.email || 'email@test.com' "/>
-                                    <p-chip icon="pi pi-mobile" [label]=" '+91-' + (user.phoneNumber ||  'xxxxx-xxxxx' )"></p-chip>
+                            <div class="col-12">
+                                <h1 class="text-center">Welcome back {{ user.displayName || 'Anonymous' }}</h1>
+                            </div>
+                            <div class="col-12">
+                                <div class="flex gap-1 flex-wrap justify-content-center">
+                                    <p-chip >
+                                        <i *ngIf="user.emailVerified"
+                                            class="pi pi-verified mx-1" style="font-size: 1.2rem" 
+                                            pTooltip="Verified" tooltipPosition="top">
+                                        </i>
+                                        <i *ngIf="!user.emailVerified"
+                                            class="pi pi-at mx-1" style="font-size: 1.2rem" 
+                                            pTooltip="Email" tooltipPosition="top">
+                                        </i>
+                                        {{ user.email || 'email@test.com' }}
+                                       
+                                    </p-chip>
+                                    <p-chip >
+                                        <i 
+                                            class="pi pi-mobile mx-1" style="font-size: 1.2rem" 
+                                            pTooltip="Mobile" tooltipPosition="top">
+                                        </i>
+                                        {{ '+91-' + (user.phoneNumber ||  'xxxxx-xxxxx') }}
+                                    </p-chip>
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="profile-actions">
-                            <button pButton label="Edit Profile" icon="pi pi-user-edit" class="p-button-outlined"></button>
-                        </div> -->
                     </p-card>
                 </main>
             </section>
