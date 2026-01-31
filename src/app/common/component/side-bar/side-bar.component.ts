@@ -7,9 +7,10 @@ import { AuthService } from '../../service/auth.service';
 
 
 @Component({
-  selector: 'app-side-bar',
-  templateUrl: './side-bar.component.html',
-  styleUrls: ['./side-bar.component.scss']
+    selector: 'app-side-bar',
+    templateUrl: './side-bar.component.html',
+    styleUrls: ['./side-bar.component.scss'],
+    standalone: false
 })
 export class SideBarComponent {
   routeItems : routeModel[] = [];
@@ -35,9 +36,10 @@ export class SideBarComponent {
 }
 
 @Component({
-  selector: 'app-sider',
-  template: '<div class="slider"></div>',
-  styleUrls: ['./side-bar.component.scss']
+    selector: 'app-sider',
+    template: '<div class="slider"></div>',
+    styleUrls: ['./side-bar.component.scss'],
+    standalone: false
 })
 export class SliderElement {
 

@@ -8,9 +8,10 @@ import { Subject, takeUntil, debounceTime } from 'rxjs';
 import { FireBaseService } from 'src/app/common/service/fire-base.service';
 import { PaginatorState } from 'primeng/paginator';
 @Component({
-  selector: 'app-notes',
-  templateUrl: './notes.component.html',
-  styleUrls: ['./notes.component.scss']
+    selector: 'app-notes',
+    templateUrl: './notes.component.html',
+    styleUrls: ['./notes.component.scss'],
+    standalone: false
 })
 export class NotesComponent implements OnInit, OnDestroy {
   isColorPickerOpen: boolean = false;
