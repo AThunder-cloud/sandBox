@@ -28,8 +28,8 @@ import { BadgeModule } from 'primeng/badge';
 // Firebase modules
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
-import { environment } from '../environment/environment'; // Ensure this file exists
-
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { environment } from '../environment/environment';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,6 +63,7 @@ import { environment } from '../environment/environment'; // Ensure this file ex
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     // Provide Auth Service
     provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
   ],
   providers: [
     MessageService
