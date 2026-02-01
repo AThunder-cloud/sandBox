@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoaderService } from './common/service/loader.service';
 import { CommonEventService } from './common/service/common-event.service';
-import { PrimeNGConfig } from 'primeng/api';
 import { AuthService } from './common/service/auth.service';
 
 @Component({
@@ -17,12 +16,10 @@ export class AppComponent implements OnInit {
   constructor(
     private loaderService:LoaderService,
     private cmevnt:CommonEventService,
-    private primengConfig: PrimeNGConfig,
     public authService: AuthService,
   ){}
 
   ngOnInit(): void {
-    this.primengConfig.ripple = true;
     this.loaderService.showLoader$.subscribe((val) => {this.showLoader=val})
   }
   collapse(){

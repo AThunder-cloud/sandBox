@@ -1,4 +1,4 @@
-import { NgModule, provideAppInitializer } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,13 +10,14 @@ import { NotesComponent } from './feature/notes/notes.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { TooltipModule } from 'primeng/tooltip';
 import { ColorPickerModule } from 'primeng/colorpicker';
-import { InputTextareaModule } from 'primeng/inputtextarea';
+import { TextareaModule  } from 'primeng/textarea';
 import { ChipModule } from 'primeng/chip';
 import { RippleModule } from 'primeng/ripple';
 import { DialogModule} from 'primeng/dialog';
@@ -30,6 +31,8 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { environment } from '../environment/environment';
+import { providePrimeNG } from 'primeng/config';
+import Aura from '@primeuix/themes/aura';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +55,7 @@ import { environment } from '../environment/environment';
     InputTextModule,
     TooltipModule,
     ColorPickerModule,
-    InputTextareaModule,
+    TextareaModule,
     ChipModule,
     RippleModule,
     DialogModule,
@@ -63,6 +66,17 @@ import { environment } from '../environment/environment';
   ],
   providers: [
     MessageService,
+    provideAnimationsAsync(),
+    providePrimeNG({
+        theme: {
+            preset: Aura,
+            options: {
+                prefix: 'p',
+                darkModeSelector: '.dark',
+                cssLayer: false
+            }
+        }
+    }),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore())

@@ -207,19 +207,21 @@
             />
         </div>
         <div class="flex gap-1 flex-column overflow-y-visible">
-            <p-accordion [activeIndex]="accordionActiveIndex">
-                <p-accordionTab *ngIf="paginatedCollectionList.length <= 0" header="No Collection">
+            <p-accordion [value]="accordionActiveIndex">
+                <p-accordion-panel *ngIf="paginatedCollectionList.length <= 0">
+                    <p-accordion-header>No Collection</p-accordion-header>
                     <p>
                         Add Collection to get started
                     </p>
-                </p-accordionTab>
-                <p-accordionTab *ngFor="let collection of paginatedCollectionList" [header]="collection.name">
+                </p-accordion-panel>
+                <p-accordion-panel *ngFor="let collection of paginatedCollectionList">
+                    <p-accordion-header>{{collection.name}}</p-accordion-header>
                     <div class="flex justify-content-between align-items-center mb-2">
                         <p class="m-0 flex-grow-1">{{ collection.description }}</p>
                         <i class="pi pi-trash cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple pTooltip="Delete"
                         tooltipPosition="top" (click)="deleteCollection(collection)"></i>
                     </div>
-                </p-accordionTab>
+                </p-accordion-panel>
             </p-accordion>
             
         </div>
