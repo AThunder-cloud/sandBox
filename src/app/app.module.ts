@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, provideAppInitializer } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -60,13 +60,12 @@ import { environment } from '../environment/environment';
     PaginatorModule,
     AccordionModule,
     BadgeModule,
-    // provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-    // Provide Auth Service
-    // provideAuth(() => getAuth()),
-    // provideFirestore(() => getFirestore()),
   ],
   providers: [
-    MessageService
+    MessageService,
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore())
   ],
   bootstrap: [AppComponent]
 })
