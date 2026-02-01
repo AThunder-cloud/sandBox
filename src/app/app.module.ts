@@ -60,10 +60,10 @@ import { environment } from '../environment/environment';
     PaginatorModule,
     AccordionModule,
     BadgeModule,
-    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    // provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     // Provide Auth Service
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
+    // provideAuth(() => getAuth()),
+    // provideFirestore(() => getFirestore()),
   ],
   providers: [
     MessageService
