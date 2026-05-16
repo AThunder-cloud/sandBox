@@ -1,0 +1,11 @@
+<h2
+    class="typewriter"
+    [class.typing]="typing && !done"
+    [class.done]="done"
+    [style.--characters]="text.length"
+    [style.--duration.s]="duration"
+    [style.--fast-blink.s]="fastBlink"
+    (animationend)="onAnimationEnd($event)"
+>
+    {{ text }}
+</h2>

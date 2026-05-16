@@ -14,3 +14,14 @@ export const AuthGuard: CanActivateFn = () => {
     })
   ).pipe(map((user) => (user ? true : router.createUrlTree(['/login']))));
 };
+
+export const LogAuthGuard: CanActivateFn = () => {
+  const auth = inject(Auth);
+  const router = inject(Router);
+
+  return from(
+    new Promise((resolve) => {
+      onAuthStateChanged(auth, (user) => resolve(user));
+    })
+  ).pipe(map((user) => (user ? router.createUrlTree(['/']) : true )));
+};

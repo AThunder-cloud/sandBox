@@ -116,8 +116,7 @@ export class NotesComponent implements OnInit, OnDestroy {
       const all: Collection = { 
         id: '0', 
         name: 'ALL', 
-        description: 'Represent all the notes',
-        userId: '' 
+        description: 'Represent all the notes'
       };
       this.collectionList = [all, ...data];
       this.paginateCollections();
@@ -218,7 +217,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     }
     try {
       if (this.createNoteFrom.valid && "save" === action) {
-        const newNote: Omit<Note, 'id' | 'userId'> = {
+        const newNote: Omit<Note, 'id'> = {
           ...this.createNoteFrom.getRawValue()
         };
         const id = await this.fireStore.addNote(newNote);
@@ -255,7 +254,7 @@ export class NotesComponent implements OnInit, OnDestroy {
       return;
     }
     try {
-      const collection: Omit<Collection, 'id' | 'userId'> = {
+      const collection: Omit<Collection, 'id'> = {
         name: this.createNewCollection.get('name')?.value.trim(),
         description: this.createNewCollection.get('description')?.value.trim()
       };

@@ -40,91 +40,153 @@ export class FireBaseService {
 
     // Notes Operations
     async addNote(note: Omit<Note, 'id' | 'userId'>): Promise<string> {
-        const user = await firstValueFrom(this.authService.user$.pipe(map(user => user?.uid)));
-        if (!user) throw new Error('User not authenticated');
-
-        const noteWithUser = {
+        const user = await firstValueFrom(
+            this.authService.user$.pipe(map(user => user?.uid))
+        );
+        if (!user) {
+            throw new Error('User not authenticated');
+        }
+        const noteData = {
             ...note,
-            userId: user,
-            createdAt: Timestamp.fromDate(new Date()),
-            updatedAt: Timestamp.fromDate(new Date())
+            createdAt: Timestamp.now(),
+            updatedAt: Timestamp.now()
         };
-
-        const docRef = await addDoc(collection(this.firestore, 'notes'), noteWithUser);
+        const notesCollection = collection(
+            this.firestore,
+            `users/${user}/notes`
+        );
+        const docRef = await addDoc(notesCollection, noteData);
         return docRef.id;
     }
 
-    async updateNote(noteId: string, note: Partial<Omit<Note, 'id' | 'userId'>>): Promise<void> {
-        const docRef = doc(this.firestore, 'notes', noteId);
-        const updateData = {
-            ...note,
-            updatedAt: Timestamp.fromDate(new Date())
-        };
-        await updateDoc(docRef, updateData);
-    }
+    async updateNote(noteId: string, note: Partial<Note>): Promise<void> {
 
-    async deleteNote(noteId: string): Promise<void> {
-        await deleteDoc(doc(this.firestore, 'notes', noteId));
-    }
+        const user = await firstValueFrom(
+            this.authService.user$.pipe(map(user => user?.uid))
+        );
 
-    async getNotes(collectionId?: string): Promise<Note[]> {
-        const user = await firstValueFrom(this.authService.user$.pipe(map(user => user?.uid)));
-        if (!user) return [];
-
-        let queryConstraints = [
-            where('userId', '==', user),
-            orderBy('updatedAt', 'desc')
-        ];
-
-        if (collectionId && collectionId !== '0') {
-            queryConstraints.push(where('listId', '==', collectionId));
+        if (!user) {
+            throw new Error('User not authenticated');
         }
 
-        const q = query(collection(this.firestore, 'notes'), ...queryConstraints);
-        const querySnapshot = await getDocs(q);
-        
-        return querySnapshot.docs.map(doc => {
-            const data = this.convertTimestampToDate(doc.data() as DocumentData);
-            return {
-                ...data,
-                id: doc.id
-            } as Note;
+        const docRef = doc(
+            this.firestore,
+            `users/${user}/notes/${noteId}`
+        );
+
+        await updateDoc(docRef, {
+            ...note,
+            updatedAt: Timestamp.now()
         });
     }
 
+    async deleteNote(noteId: string): Promise<void> {
+        const user = await firstValueFrom(
+            this.authService.user$.pipe(map(user => user?.uid))
+        );
+
+        if (!user) {
+            throw new Error('User not authenticated');
+        }
+
+        await deleteDoc(
+            doc(this.firestore, `users/${user}/notes/${noteId}`)
+        );
+    }
+
+    async getNotes(): Promise<Note[]> {
+        const user = await firstValueFrom(
+            this.authService.user$.pipe(map(user => user?.uid))
+        );
+
+        if (!user) return [];
+
+        const notesCollection = collection(
+            this.firestore,
+            `users/${user}/notes`
+        );
+
+        const q = query(
+            notesCollection,
+            orderBy('updatedAt', 'desc')
+        );
+
+        const querySnapshot = await getDocs(q);
+
+        return querySnapshot.docs.map(doc => ({
+            ...this.convertTimestampToDate(doc.data() as DocumentData),
+            id: doc.id
+        } as Note));
+    }
+
     // Collections Operations
-    async addCollection(collectionData: Omit<Collection, 'id' | 'userId'>): Promise<string> {
-        const user = await firstValueFrom(this.authService.user$.pipe(map(user => user?.uid)));
-        if (!user) throw new Error('User not authenticated');
+    async addCollection(collectionData: Omit<Collection, 'id'>): Promise<string> {
 
-        const collectionWithUser = {
-            ...collectionData,
-            userId: user
-        };
+        const user = await firstValueFrom(
+            this.authService.user$.pipe(map(user => user?.uid))
+        );
 
-        const docRef = await addDoc(collection(this.firestore, 'collections'), collectionWithUser);
+        if (!user) {
+            throw new Error('User not authenticated');
+        }
+
+        const collectionsRef = collection(
+            this.firestore,
+            `users/${user}/collections`
+        );
+
+        const docRef = await addDoc(collectionsRef, collectionData);
+
         return docRef.id;
     }
 
-    async updateCollection(collectionId: string, collectionData: Partial<Omit<Collection, 'id' | 'userId'>>): Promise<void> {
-        const docRef = doc(this.firestore, 'collections', collectionId);
+    async updateCollection(collectionId: string,collectionData: Partial<Omit<Collection, 'id'>>): Promise<void> {
+
+        const user = await firstValueFrom(
+            this.authService.user$.pipe(map(user => user?.uid))
+        );
+
+        if (!user) {
+            throw new Error('User not authenticated');
+        }
+
+        const docRef = doc(
+            this.firestore,
+            `users/${user}/collections/${collectionId}`
+        );
+
         await updateDoc(docRef, collectionData);
     }
 
     async deleteCollection(collectionId: string): Promise<void> {
-        await deleteDoc(doc(this.firestore, 'collections', collectionId));
-    }
 
-    async getCollections(): Promise<Collection[]> {
-        const user = await firstValueFrom(this.authService.user$.pipe(map(user => user?.uid)));
-        if (!user) return [];
-
-        const q = query(
-            collection(this.firestore, 'collections'),
-            where('userId', '==', user)
+        const user = await firstValueFrom(
+            this.authService.user$.pipe(map(user => user?.uid))
         );
 
-        const querySnapshot = await getDocs(q);
+        if (!user) {
+            throw new Error('User not authenticated');
+        }
+
+        await deleteDoc(
+            doc(this.firestore, `users/${user}/collections/${collectionId}`)
+        );
+    }
+    async getCollections(): Promise<Collection[]> {
+
+        const user = await firstValueFrom(
+            this.authService.user$.pipe(map(user => user?.uid))
+        );
+
+        if (!user) return [];
+
+        const collectionsRef = collection(
+            this.firestore,
+            `users/${user}/collections`
+        );
+
+        const querySnapshot = await getDocs(collectionsRef);
+
         return querySnapshot.docs.map(doc => ({
             ...doc.data(),
             id: doc.id

@@ -1,0 +1,58 @@
+.typewriter {
+  display: block;
+  width: fit-content; 
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 10px solid orange;
+
+  --characters: 20;
+  --duration: 3s;
+  --fast-blink: 0.4s;
+}
+
+.typewriter.typing {
+  animation:
+    typing var(--duration)
+      steps(var(--characters))
+      forwards,
+    blink-fast var(--fast-blink)
+      step-end infinite;
+}
+
+.typewriter.done {
+  animation:
+    blink-slow 1s
+      step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-fast {
+  from,
+  to {
+    border-color: transparent;
+  }
+
+  50% {
+    border-color: orange;
+  }
+}
+
+@keyframes blink-slow {
+  from,
+  to {
+    border-color: transparent;
+  }
+
+  50% {
+    border-color: orange;
+  }
+}

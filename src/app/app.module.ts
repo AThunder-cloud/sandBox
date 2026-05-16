@@ -33,6 +33,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { environment } from '../environment/environment';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
+import { TypewriterComponent } from './common/component/typewriter/typewriter.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,6 +64,7 @@ import Aura from '@primeuix/themes/aura';
     PaginatorModule,
     AccordionModule,
     BadgeModule,
+    TypewriterComponent
   ],
   providers: [
     MessageService,

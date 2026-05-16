@@ -18,7 +18,7 @@ export interface Collection {
     id?: string; // Unique identifier (Firestore document ID)
     name: string; // Name of the list
     description?: string; // Optional description
-    userId: string; // Owner of the collection
+    // userId: string; // Owner of the collection
 }
 
 export interface NoteResponse {
