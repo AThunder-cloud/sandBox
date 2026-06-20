@@ -122,8 +122,8 @@
 }
 .colletion-box{
     margin-inline: auto;
-    display: grid;
-    grid-auto-flow:column;
+    display: flex;
+    flex-direction: row;
     width: 75%;
     gap: .5rem;
     overflow-x: scroll;

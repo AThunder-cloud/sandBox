@@ -1,152 +1,109 @@
-@import "../../../../styles.scss";
+@use '../../../../styles';
 
-.nav{
-    display: flex;
-    overflow-y: auto;
-    white-space: nowrap;
-    position: relative;
-    flex-wrap: nowrap;
-    padding: 5px 0px; 
-    flex-direction: column;
-    padding:2rem 0;
-    height: calc(100dvh - 50px);
-    gap: .5rem;
+.bg-sidebar{
+  border-right: 1px solid;
+  border-color: var(--70);
+}
+.il-nav{
+  &:has(.active-route){
+    background-color: var(--active-link);
+  }
+  &:hover{
+    background-color: var(--active-link);
+  }
+}
 
-    .nav-item{
-        display: inline-block;
-        backdrop-filter:brightness(1);
-        margin-inline: .5rem;
-        font-weight: 600;
-        transition: all .1s;
-        border-radius: .4rem;
+.nav-link {
+  text-decoration: none;
+  font-weight: 500;
+  outline: none;
+  user-select: none;
+
+  // Micro-interactions
+  i {
+    transition: transform var(--anim-duration-fast) var(--anim-timing-fluid);
+    color: var(--icon-color);
+  }
+}
+
+// Text route labels behavior configuration
+.route-name {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity var(--anim-duration-fast) linear, 
+              transform var(--anim-duration-fast) var(--anim-timing-fluid);
+  white-space: nowrap;
+}
+
+// Tablet Viewport Layout Adjustments (Icon-only mode fallback)
+@media (max-width: 768px) {
+  .route-name {
+    display: none;
     
-        .nav-link{
-            text-decoration: none;
-            cursor: pointer;
-            background-clip: border-box;
-            gap: 15px;
-            align-items: center;
+    &.show-expanded {
+      display: block;
+      animation: fadeIn var(--anim-duration-fast) ease-out forwards;
+    }
+  }
+}
 
-            .route-name{
-                font-size: medium;
-                font-weight: normal;
-                color: var(--100);
-            }
-        }
+// Mobile Slide Drawer Matrix Layout Strategy (GPU Accelerated Translation)
+@media (max-width: 480px) {
+  .sidebar-nav, 
+  .sidebar-footer {
+    transform: translateX(-100%);
+    transition: transform var(--anim-duration-mid) var(--anim-timing-fluid);
     
-        &:hover{
-            transform: scale(1.01);
-        }
+    &.is-expanded {
+      transform: translateX(0);
     }
+  }
 
+  .nav-link {
+    padding: 1rem 1.25rem !important;
+  }
 }
 
-@media (max-width: 700px) {
-    .nav-link{        
-        .route-name{
-            display: none;
-        }
-    }
-    
-    .nav-link{
-        .exp-name{
-            display: block;
-            font-size: medium;
-            font-weight: normal;
-            transition:display .2s ease-in-out;
-        }
-    }
-}
-@media (max-width:470px){
-    .nav{
-        margin-left: -100px;
-        box-shadow: none;
-    }
-    .logout{
-        margin-left: -100px;
-        box-shadow: none;
-    }
-    .exp-nav{
-        margin-left: 0px;
-        transition:margin-left .2s ease-in-out;
-    }
-    .nav-link{
-        .exp-name{
-            display: none;
-        }
-    }
+.slide-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100dvh;
+  width: 100vw;
+  z-index: 9999;
+  background:var(--slider-bg-end);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  pointer-events: none; 
+  will-change: transform, opacity;
+  animation: sweep 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
-
-// Slider Transition
-
-.slider {
-    z-index: 2000;
-    background-color: var(--slider-bg-start);
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 0%;
-    opacity: .5;
-    animation: slideInOut .5s ease-in-out forwards;
-}
-.slider::before{
-    content: "";
-    width: 100%;
-    height: 100%;
-    backdrop-filter: blur(10px);
+// Animation Curves 
+@keyframes sweep {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
 }
 
-@keyframes slideInOut {
-    0% {
-        width: 0%;
-        background-color: var(--slider-bg-start);
-        backdrop-filter: blur(10px);
-    }
-    50% {
-        width: 100%;
-        background-color: var(--slider-bg-middle);
-        backdrop-filter: blur(10px);
-    }
-    100% {
-        width: 0%;
-        background-color: var(--slider-bg-end);
-        backdrop-filter: blur(10px);
-    }
-}
-
-.logout{
-    display: flex;
-    white-space: nowrap;
-    position: relative;
-    flex-wrap: nowrap;
-    flex-direction: column;
-
-    .nav-item{
-        display: inline-block;
-        backdrop-filter:brightness(1);
-        margin-inline: .5rem;
-        font-weight: 600;
-        transition: all .1s;
-        border-radius: .4rem;
-    
-        .nav-link{
-            text-decoration: none;
-            cursor: pointer;
-            background-clip: border-box;
-            gap: 15px;
-            align-items: center;
-
-            .route-name{
-                font-size: medium;
-                font-weight: normal;
-            }
-        }
-    
-        &:hover{
-            transform: scale(1.05);
-        }
-    }
-
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }

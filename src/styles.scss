@@ -1,35 +1,64 @@
 @import "primeicons/primeicons.css";
 /* You can add global styles to this file, and also import other style files */
 /*------- Variables Defination----------*/
-$main-color: #7da0ff;
+$main-color: #0052D4;
+// ==========================================================================
+// 1. GLOBAL LAYOUT AND STRUCTURAL TOKENS (Shared across ALL themes)
+// ==========================================================================
+:root {
+  --sidebar-width-expanded: 260px;
+  --sidebar-width-collapsed: 78px;
+  --navbar-height: 60px;
+  
+  // High-performance hardware animation configuration
+  --anim-timing-fluid: cubic-bezier(0.4, 0, 0.2, 1);
+  --anim-duration-fast: 0.2s;
+  --anim-duration-mid: 0.4s;
+
+  // DEFAULT (LIGHT) THEME VARIABLES
+  --active-link: rgba(77, 68, 255, 0.15);
+  --slider-bg-start: rgba(78, 68, 255, 0.4); 
+  --slider-bg-middle: rgba(63, 53, 254, 0.2); 
+  --slider-bg-end: rgba(135, 206, 235, 0.05); 
+  --icon-color: #6100FF;
+  
+  --scrollbar-thumb: #a3a3a3;
+  --background-filter: rgba(0, 0, 0, 0.12);
+  --border-color: rgba(0, 0, 0, 0.12);
+  
+  // Text Opacity scale layers
+  --70: rgba(0, 0, 0, 0.7);
+  --80: rgba(0, 0, 0, 0.8);
+  --90: rgba(0, 0, 0, 0.9);
+  --100: rgba(0, 0, 0, 1);
+}
+
+// ==========================================================================
+// 2. DARK MODE OVERRIDES (Injected safely via HTML/Body class)
+// ==========================================================================
+.dark-theme {
+  --active-link: rgba(77, 68, 255, 0.25);
+  
+  // Sleek cyber dark mode sweep properties
+  --slider-bg-start: rgba(26, 26, 26, 0.8); 
+  --slider-bg-middle: rgba(42, 42, 42, 0.5); 
+  --slider-bg-end: rgba(58, 58, 58, 0.1); 
+  
+  --scrollbar-thumb: #4e44ff;
+  --background-filter: rgba(255, 255, 255, 0.23);
+  --border-color: rgba(255, 255, 255, 0.15);
+  --icon-color: #6FB1FC;
+
+  // Dark mode white text layers
+  --70: rgba(255, 255, 255, 0.7);
+  --80: rgba(255, 255, 255, 0.8);
+  --90: rgba(255, 255, 255, 0.9);
+  --100: rgba(255, 255, 255, 1);
+}
+
 
 ::-webkit-scrollbar {
   display: none;
-}
-:root {
-  --slider-bg-start: #4e44ff; /* Start: Sky blue */
-  --slider-bg-middle: #3f35fe; /* Middle: Orange sunset */
-  --slider-bg-end: #87CEEB; /* End: Sky blue */
-  --scrollbar-thumb: #a3a3a3;
-  --background-filter:#0000001d;
-  --border-color:#0000001d;
-  --70:rgba(0,0,0,0.7);
-  --80:rgba(0,0,0,0.8);
-  --90:rgba(0,0,0,0.9);
-  --100:rgba(0,0,0,1);
-}
-
-.dark-theme {
-  --slider-bg-start: #1a1a1a; /* Dark mode start color */
-  --slider-bg-middle: #2a2a2a; /* Dark mode middle color */
-  --slider-bg-end: #3a3a3a; /* Dark mode end color */
-  --scrollbar-thumb: #4e44ff;
-  --background-filter:#ffffff3b;
-  --border-color:#ffffff;
-  --70:rgba(255, 253, 255, 0.7);
-  --80:rgba(255, 255, 255, 0.8);
-  --90:rgba(255, 255, 255, 0.9);
-  --100:rgb(255, 255, 255);
 }
 html {
   height:fit-content;

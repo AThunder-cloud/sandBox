@@ -1,1 +1,0 @@
-export const iconColor = "DodgerBlue" // side bar icon color

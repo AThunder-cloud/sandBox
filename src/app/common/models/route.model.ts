@@ -3,5 +3,4 @@ export interface routeModel {
     iconType: string,
     icon: string,
     path:string,
-    style: { [key: string]: string };
 }

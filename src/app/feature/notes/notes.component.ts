@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, effect, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Note, Collection } from 'src/app/common/models/notes.model';
 import { CommonEventService } from 'src/app/common/services/common-event.service';
@@ -18,6 +18,7 @@ import { Tooltip } from 'primeng/tooltip';
 import { ButtonDirective } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { Accordion, AccordionPanel, AccordionHeader } from 'primeng/accordion';
+import { ThemeService } from 'src/app/common/services/theme.service';
 @Component({
     selector: 'app-notes',
     templateUrl: './notes.component.html',
@@ -30,6 +31,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   private cmevnt: CommonEventService = inject(CommonEventService);
   private fireStore: FireBaseService = inject(FireBaseService);
   private toast: ToastService = inject(ToastService);
+  private themeService: ThemeService = inject(ThemeService);
 
   isColorPickerOpen: boolean = false;
   isColorPicker2Open: boolean = false;
@@ -75,6 +77,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     this.initForms();
     this.getAllNotes();
     this.getAllCollection();
+    this.applyEffect();
   }
 
   initForms() {
@@ -134,6 +137,20 @@ export class NotesComponent implements OnInit, OnDestroy {
     } catch (error) {
       this.toast.showError("Error", "Failed to fetch collections");
     }
+  }
+  private applyEffect(){
+    effect(() => {
+      const isDark = this.themeService.isDarkMode(); 
+      this.colorList = isDark ? this.colorListDark : this.colorListLight;
+      
+      this.changeColor(0, 'createNoteFrom');
+      this.changeColor(0, 'editNoteFrom');
+      
+      this.notesList = this.notesList.map(note => ({
+        ...note,
+        colorIndex: note.colorIndex
+      }));
+    });
   }
   paginateCollections() {
     const start = this.firstCollectionPage;

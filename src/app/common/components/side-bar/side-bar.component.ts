@@ -1,45 +1,50 @@
-import { Component, ElementRef, HostListener, Renderer2, ViewChild, forwardRef, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { NgClass, NgStyle } from '@angular/common';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Ripple } from 'primeng/ripple';
+
 import { routeModel } from '../../models/route.model';
 import { routeItemsList } from './routeItems.list';
 import { CommonEventService } from '../../services/common-event.service';
 import { AuthService } from '../../services/auth.service';
-import { NgClass, NgStyle } from '@angular/common';
-import { Ripple } from 'primeng/ripple';
-import { RouterLink } from '@angular/router';
-
 
 @Component({
   selector: 'app-side-bar',
+  standalone: true,
   templateUrl: './side-bar.component.html',
   styleUrls: ['./side-bar.component.scss'],
-  imports: [NgClass, Ripple, RouterLink, NgStyle, forwardRef(() => SliderElement)]
+  imports: [
+    NgClass, 
+    NgStyle, 
+    RouterLink, 
+    Ripple,
+    RouterLinkActive
+  ]
 })
-export class SideBarComponent {
-  private cmevnt: CommonEventService = inject(CommonEventService);
-  public authService: AuthService = inject(AuthService);
+export class SideBarComponent implements OnInit {
+  private readonly cmevnt = inject(CommonEventService);
+  private readonly authService = inject(AuthService);
 
   routeItems: routeModel[] = [];
-  showSlide: boolean = false;
-  expandSideBar: boolean = false;
+  showSlide = true;
+  expandSideBar = false;
 
   constructor() {
-    // Automatically handles unsubscription when component destroys
     this.cmevnt.expandSideBar$
       .pipe(takeUntilDestroyed())
-      .subscribe(evn => this.expandSideBar = evn);
+      .subscribe(expanded => this.expandSideBar = expanded);
   }
 
   ngOnInit(): void {
     this.routeItems = routeItemsList;
   }
 
-  slide() {
+  triggerSlideAnimation() {
     this.showSlide = true;
-    setTimeout(() => {
-      this.showSlide = false;
-    }, 1200);
+    setTimeout(() => this.showSlide = false, 800); // sync with CSS animation time
   }
+
   logout() {
     this.authService.logout();
   }

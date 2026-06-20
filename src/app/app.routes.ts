@@ -21,7 +21,7 @@ export const routes: Routes = [
         loadComponent: () => import('./feature/notes/notes.component').then(m => m.NotesComponent)
       },
       {
-        path: 'physic',
+        path: 'feature/physic',
         loadComponent: () => import('./feature/physic/physic.component').then(m => m.PhysicComponent)
       }
     ]
