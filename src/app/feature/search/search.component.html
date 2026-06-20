@@ -1,0 +1,13 @@
+<input [formControl]="searchControl" placeholder="Search..." />
+@if (loading()) {
+  <div>Loading...</div>
+}
+@if (error()) {
+  <div>Error occurred</div>
+}
+
+<ul>
+  @for (item of result(); track item) {
+    <li>{{ item?.name ?? "N/A" }}</li>
+  }
+</ul>

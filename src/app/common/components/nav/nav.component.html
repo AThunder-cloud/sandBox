@@ -1,0 +1,16 @@
+<nav class="flex align-items-center justify-content-between bg-sky position-sticky top-0 z-3 px-4 py-3">
+    <div class="flex align-items-center">
+        <a class="cursor-pointer hamburger-menu" (click)="expandTrigger()">
+            <i class="pi pi-angle-double-right"
+            [ngClass]="{ 'openingSideBar': openSideBar }"></i>
+        </a>
+    </div>
+    <div class="flex flex-row gap-4 text-base justify-content-center align-items-center ">
+        <!-- <div>
+            <i class="pi cursor-pointer" [ngClass]="{'pi-moon':isDarkMode,'pi-sun':!isDarkMode}" (click)="toggleDarkMode()"></i>
+        </div> -->
+        <a routerLink="/" class="flex align-items-center">
+            <img src="assets/images/icons/sand-box.svg" alt="SandBox" style="height: 38px; width: auto;" />
+        </a>
+    </div>
+</nav>

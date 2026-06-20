@@ -1,19 +1,36 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Note, Collection } from 'src/app/common/models/notes.model';
-import { CommonEventService } from 'src/app/common/service/common-event.service';
-import { UtilityService } from 'src/app/common/service/utility.service';
-import { ToastService } from 'src/app/common/service/toast.service';
+import { CommonEventService } from 'src/app/common/services/common-event.service';
+import { UtilityService } from 'src/app/common/services/utility.service';
+import { ToastService } from 'src/app/common/services/toast.service';
 import { Subject, takeUntil, debounceTime } from 'rxjs';
-import { FireBaseService } from 'src/app/common/service/fire-base.service';
-import { PaginatorState } from 'primeng/paginator';
+import { FireBaseService } from 'src/app/common/services/fire-base.service';
+import { PaginatorState, Paginator } from 'primeng/paginator';
+import { Bind } from 'primeng/bind';
+import { Card } from 'primeng/card';
+import { PrimeTemplate } from 'primeng/api';
+import { InputText } from 'primeng/inputtext';
+import { NgClass, SlicePipe, DatePipe } from '@angular/common';
+import { Textarea } from 'primeng/textarea';
+import { Ripple } from 'primeng/ripple';
+import { Tooltip } from 'primeng/tooltip';
+import { ButtonDirective } from 'primeng/button';
+import { Dialog } from 'primeng/dialog';
+import { Accordion, AccordionPanel, AccordionHeader } from 'primeng/accordion';
 @Component({
     selector: 'app-notes',
     templateUrl: './notes.component.html',
     styleUrls: ['./notes.component.scss'],
-    standalone: false
+    imports: [ReactiveFormsModule, Bind, Card, PrimeTemplate, InputText, Textarea, Ripple, Tooltip, NgClass, ButtonDirective, Dialog, Paginator, Accordion, AccordionPanel, AccordionHeader, SlicePipe, DatePipe]
 })
 export class NotesComponent implements OnInit, OnDestroy {
+  private utility: UtilityService = inject(UtilityService);
+  private fb: FormBuilder = inject(FormBuilder);
+  private cmevnt: CommonEventService = inject(CommonEventService);
+  private fireStore: FireBaseService = inject(FireBaseService);
+  private toast: ToastService = inject(ToastService);
+
   isColorPickerOpen: boolean = false;
   isColorPicker2Open: boolean = false;
   isDarkModeOn: boolean = false;
@@ -54,13 +71,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   firstCollectionPage: number = 0;
   currentCollectionRow: number = 10;
   accordionActiveIndex: number | number[] = 0;
-  constructor(
-    private utility: UtilityService,
-    private fb: FormBuilder,
-    private cmevnt: CommonEventService,
-    private fireStore: FireBaseService,
-    private toast: ToastService
-  ) {
+  constructor() {
     this.initForms();
     this.getAllNotes();
     this.getAllCollection();

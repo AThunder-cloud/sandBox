@@ -1,0 +1,152 @@
+@import "../../../../styles.scss";
+
+.nav{
+    display: flex;
+    overflow-y: auto;
+    white-space: nowrap;
+    position: relative;
+    flex-wrap: nowrap;
+    padding: 5px 0px; 
+    flex-direction: column;
+    padding:2rem 0;
+    height: calc(100dvh - 50px);
+    gap: .5rem;
+
+    .nav-item{
+        display: inline-block;
+        backdrop-filter:brightness(1);
+        margin-inline: .5rem;
+        font-weight: 600;
+        transition: all .1s;
+        border-radius: .4rem;
+    
+        .nav-link{
+            text-decoration: none;
+            cursor: pointer;
+            background-clip: border-box;
+            gap: 15px;
+            align-items: center;
+
+            .route-name{
+                font-size: medium;
+                font-weight: normal;
+                color: var(--100);
+            }
+        }
+    
+        &:hover{
+            transform: scale(1.01);
+        }
+    }
+
+}
+
+@media (max-width: 700px) {
+    .nav-link{        
+        .route-name{
+            display: none;
+        }
+    }
+    
+    .nav-link{
+        .exp-name{
+            display: block;
+            font-size: medium;
+            font-weight: normal;
+            transition:display .2s ease-in-out;
+        }
+    }
+}
+@media (max-width:470px){
+    .nav{
+        margin-left: -100px;
+        box-shadow: none;
+    }
+    .logout{
+        margin-left: -100px;
+        box-shadow: none;
+    }
+    .exp-nav{
+        margin-left: 0px;
+        transition:margin-left .2s ease-in-out;
+    }
+    .nav-link{
+        .exp-name{
+            display: none;
+        }
+    }
+}
+
+
+// Slider Transition
+
+.slider {
+    z-index: 2000;
+    background-color: var(--slider-bg-start);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    opacity: .5;
+    animation: slideInOut .5s ease-in-out forwards;
+}
+.slider::before{
+    content: "";
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(10px);
+}
+
+@keyframes slideInOut {
+    0% {
+        width: 0%;
+        background-color: var(--slider-bg-start);
+        backdrop-filter: blur(10px);
+    }
+    50% {
+        width: 100%;
+        background-color: var(--slider-bg-middle);
+        backdrop-filter: blur(10px);
+    }
+    100% {
+        width: 0%;
+        background-color: var(--slider-bg-end);
+        backdrop-filter: blur(10px);
+    }
+}
+
+.logout{
+    display: flex;
+    white-space: nowrap;
+    position: relative;
+    flex-wrap: nowrap;
+    flex-direction: column;
+
+    .nav-item{
+        display: inline-block;
+        backdrop-filter:brightness(1);
+        margin-inline: .5rem;
+        font-weight: 600;
+        transition: all .1s;
+        border-radius: .4rem;
+    
+        .nav-link{
+            text-decoration: none;
+            cursor: pointer;
+            background-clip: border-box;
+            gap: 15px;
+            align-items: center;
+
+            .route-name{
+                font-size: medium;
+                font-weight: normal;
+            }
+        }
+    
+        &:hover{
+            transform: scale(1.05);
+        }
+    }
+
+}

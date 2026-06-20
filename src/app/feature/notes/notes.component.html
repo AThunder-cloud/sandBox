@@ -1,229 +1,253 @@
 <section>
-    <div class="flex justify-content-center">
-        <div class="xl:w-8 lg:w-8 md:w-10 sm:w-12 flex-grow-1 md:flex-grow-0 relative">
-            <form [formGroup]="createNoteFrom">
-                <p-card>
-                    <ng-template pTemplate="header">
-                        <input 
-                            class="w-full border-none font-semibold black90" style="border-bottom-left-radius:0;border-bottom-right-radius: 0;"
-                            formControlName="title" name="title"
-                            type="text" maxlength="100"
-                            placeholder="Title" 
-                            pInputText 
-                        />
-                        <div class="w-full flex justify-content-start px-2">
-                            <span class="text-sm text-600 vertical-align-baseline m-1">
-                                {{createNoteFrom.get('createdAt')?.value | date:"EEE MMM dd, yyyy 'at' hh:mm a"}}
-                                <ng-container *ngIf="createNoteFrom.get('content')?.value?.trim()?.length > 0">
-                                    |
-                                    {{createNoteFrom.get('content')?.value?.trim()?.length}} 
-                                    characters
-                                </ng-container>
-                            </span>
-                        </div>
-                    </ng-template>
-                    <ng-template pTemplate="p-card-content px-0">
-                        <textarea 
-                            rows="2" cols="30" class="w-full max-h-20rem overflow-y-visible border-none black90" 
-                            formControlName="content" name="content" placeholder="Note.."
-                            pInputTextarea [autoResize]="true">
-                        </textarea>
-                        <!-- <div *ngIf="createNoteFrom.get('tags')?.value" class="flex flex-row py-2">
-                            <p-chip label="food" [style]="{'font-size': 'small'}" [removable]="true"></p-chip>
-                        </div> -->
-                    </ng-template>
-                    <ng-template pTemplate="footer" class="p-0">
-                        <div class="flex flex-row gap-4 justify-content-end mx-3">
-                            <div pCard *ngIf="isColorPickerOpen" class="cursor-pointer flex align-items-center gap-2">
-                                <span *ngFor="let color of colorList;let i= index" class="circle-color-icon p-ripple"
-                                    [style]="{'background-color':color == '' ? 'black' : color }" (click)="changeColor(i,'createNoteFrom')"></span>
-                            </div>
-                            <i 
-                                class="pi pi-palette cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple
-                                pTooltip="Color Picker" tooltipPosition="top" 
-                                (click)="openColorPicker('createNoteFrom')">
-                            </i>
-                            <i 
-                                class="pi pi-bookmark-fill cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple
-                                pTooltip="Book Mark" tooltipPosition="top" 
-                                [ngClass]="{'text-blue-500': createNoteFrom.get('isPinned')?.value}"
-                                (click)="togglePinned(createNoteFrom)">
-                            </i>
-                            <i 
-                                class="pi pi-eraser cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple
-                                pTooltip="earse" tooltipPosition="top" 
-                                (click)="clearForm(createNoteFrom)">
-                            </i>
-                            <i 
-                                class="pi pi-save cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple
-                                pTooltip="Save" tooltipPosition="top" 
-                                (click)="submitForm('save')">
-                            </i>
-                        </div>
-                        <!-- <div pCard *ngIf="isColorPickerOpen" class="color-picker-card surface-100 shadow-2 cursor-pointer">
-                            <i *ngFor="let color of colorList;let i= index" 
-                            class="pi pi-circle-fill color-icon" 
-                            [style]="{'color':color,'font-size':'1.2rem'}"
-                            (click)="changeColor(i,'createNoteFrom')"></i>
-                        </div> -->
-                    </ng-template>
-                </p-card>
-            </form>
-        </div>
-    </div>
+  <div class="flex justify-content-center">
+    <div class="xl:w-8 lg:w-8 md:w-10 sm:w-12 flex-grow-1 md:flex-grow-0 relative">
+      <form [formGroup]="createNoteFrom">
+        <p-card>
+          <ng-template pTemplate="header">
+            <input
+              class="w-full border-none font-semibold black90" style="border-bottom-left-radius:0;border-bottom-right-radius: 0;"
+              formControlName="title" name="title"
+              type="text" maxlength="100"
+              placeholder="Title"
+              pInputText
+              />
+            <div class="w-full flex justify-content-start px-2">
+              <span class="text-sm text-600 vertical-align-baseline m-1">
+                {{createNoteFrom.get('createdAt')?.value | date:"EEE MMM dd, yyyy 'at' hh:mm a"}}
+                @if (createNoteFrom.get('content')?.value?.trim()?.length > 0) {
+                  |
+                  {{createNoteFrom.get('content')?.value?.trim()?.length}}
+                  characters
+                }
+              </span>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="p-card-content px-0">
+            <textarea
+              rows="2" cols="30" class="w-full max-h-20rem overflow-y-visible border-none black90"
+              formControlName="content" name="content" placeholder="Note.."
+              pInputTextarea [autoResize]="true">
+            </textarea>
+            <!-- <div *ngIf="createNoteFrom.get('tags')?.value" class="flex flex-row py-2">
+            <p-chip label="food" [style]="{'font-size': 'small'}" [removable]="true"></p-chip>
+          </div> -->
+        </ng-template>
+        <ng-template pTemplate="footer" class="p-0">
+          <div class="flex flex-row gap-4 justify-content-end mx-3">
+            @if (isColorPickerOpen) {
+              <div pCard class="cursor-pointer flex align-items-center gap-2">
+                @for (color of colorList; track color; let i = $index) {
+                  <span class="circle-color-icon p-ripple"
+                  [style]="{'background-color':color == '' ? 'black' : color }" (click)="changeColor(i,'createNoteFrom')"></span>
+                }
+              </div>
+            }
+            <i
+              class="pi pi-palette cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple
+              pTooltip="Color Picker" tooltipPosition="top"
+              (click)="openColorPicker('createNoteFrom')">
+            </i>
+            <i
+              class="pi pi-bookmark-fill cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple
+              pTooltip="Book Mark" tooltipPosition="top"
+              [ngClass]="{'text-blue-500': createNoteFrom.get('isPinned')?.value}"
+              (click)="togglePinned(createNoteFrom)">
+            </i>
+            <i
+              class="pi pi-eraser cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple
+              pTooltip="earse" tooltipPosition="top"
+              (click)="clearForm(createNoteFrom)">
+            </i>
+            <i
+              class="pi pi-save cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple
+              pTooltip="Save" tooltipPosition="top"
+              (click)="submitForm('save')">
+            </i>
+          </div>
+          <!-- <div pCard *ngIf="isColorPickerOpen" class="color-picker-card surface-100 shadow-2 cursor-pointer">
+          <i *ngFor="let color of colorList;let i= index"
+            class="pi pi-circle-fill color-icon"
+            [style]="{'color':color,'font-size':'1.2rem'}"
+          (click)="changeColor(i,'createNoteFrom')"></i>
+        </div> -->
+      </ng-template>
+    </p-card>
+  </form>
+</div>
+</div>
 </section>
 <section class="mt-4">
-    <div class="grid justify-content-center">
-        <span class="flex justify-content-start col-12 md:col-6">
-            <form [formGroup]="searchForm" class="w-full relative">
-                <input type="text" class="w-full" pInputText placeholder="Midnight.." formControlName="query"/>
-                <i class="pi pi-search cursor-pointer p-ripple m-1 search-icon" 
-                style="font-size: 1.2rem" pRipple pTooltip="search" tooltipPosition="top"></i>
-            </form>
-        </span>
-    </div>
+  <div class="grid justify-content-center">
+    <span class="flex justify-content-start col-12 md:col-6">
+      <form [formGroup]="searchForm" class="w-full relative">
+        <input type="text" class="w-full" pInputText placeholder="Midnight.." formControlName="query"/>
+        <i class="pi pi-search cursor-pointer p-ripple m-1 search-icon"
+        style="font-size: 1.2rem" pRipple pTooltip="search" tooltipPosition="top"></i>
+      </form>
+    </span>
+  </div>
 </section>
 <section class="mt-4 flex justify-content-center flex-column">
-    <div class="flex gap-1">
-        <button 
-            type="button" 
-            pRipple label="Add" pButton 
-            icon="pi pi-plus" 
-            class="p-button-success p-button-outlined p-button-sm ml-2"
-            (click)="addCollectionDialog=true">
-        </button>
-        <div class="colletion-box"> 
-            <span pRipple *ngFor="let collection of collectionList"  
-            class="cursor-pointer px-4 py-1 border-1 border-round-md items" 
-            (click)="onCollectionSelect(collection)">{{collection.name}}</span>
-        </div>
+  <div class="flex gap-1">
+    <button
+      type="button"
+      pRipple label="Add" pButton
+      icon="pi pi-plus"
+      class="p-button-success p-button-outlined p-button-sm ml-2"
+      (click)="addCollectionDialog=true">
+    </button>
+    <div class="colletion-box">
+      @for (collection of collectionList; track collection) {
+        <span pRipple
+          class="cursor-pointer px-4 py-1 border-1 border-round-md items"
+        (click)="onCollectionSelect(collection)">{{collection.name}}</span>
+      }
     </div>
-    <hr>
+  </div>
+  <hr>
     <div class="grid gap-0">
-        <div class="col-12" *ngIf="notesList.length <= 0"><h1 class="text-center">No Notes</h1></div>
-        <div class="col-12 sm:col-6 lg:col-3 min-width-10rem" *ngFor="let note of notesList">
-            <p-card [style]="{ backgroundColor: this.colorList[note.colorIndex]}" (click)="openNote(note)">
-                <ng-template pTemplate="header">
-                    <h3 class="note-title black90">{{ note.title| slice:0:50 }}
-                        <span class="book-marker-container" *ngIf="note?.isPinned">
-                            <span class="book-marker"></span>
-                        </span>
-                    </h3>
-                </ng-template>
-                <p class="note-content black80">{{ note.content | slice:0:130 }}</p>
-                <ng-template pTemplate="footer" *ngIf="note?.tags">
-                    <div class="tags">
-                        <span *ngFor="let tag of note.tags" class="tag">{{ tag }}</span>
-                    </div>
-                </ng-template>
-            </p-card>
+      @if (notesList.length <= 0) {
+        <div class="col-12"><h1 class="text-center">No Notes</h1></div>
+      }
+      @for (note of notesList; track note) {
+        <div class="col-12 sm:col-6 lg:col-3 min-width-10rem">
+          <p-card [style]="{ backgroundColor: this.colorList[note.colorIndex]}" (click)="openNote(note)">
+            <ng-template pTemplate="header">
+              <h3 class="note-title black90">{{ note.title| slice:0:50 }}
+                @if (note?.isPinned) {
+                  <span class="book-marker-container">
+                    <span class="book-marker"></span>
+                  </span>
+                }
+              </h3>
+            </ng-template>
+            <p class="note-content black80">{{ note.content | slice:0:130 }}</p>
+            @if (note?.tags) {
+              <ng-template pTemplate="footer">
+                <div class="tags">
+                  @for (tag of note.tags; track tag) {
+                    <span class="tag">{{ tag }}</span>
+                  }
+                </div>
+              </ng-template>
+            }
+          </p-card>
         </div>
+      }
     </div>
-</section>
-<section>
+  </section>
+  <section>
     <!-- All Dialogs -->
     <p-dialog [(visible)]="noteDialog" [modal]="true" [breakpoints]="{'1199px':'75vw','575px':'90vw'}" [maximizable]="true"
-        [style]="{width:'50rem',background:this.selectedColor}"
-        [draggable]="false">
-        <form [formGroup]="editNoteFrom" class="flex flex-column justify-content-between h-full flex-grow-1 md:flex-grow-0">
-            <div class="flex flex-column h-full flex-grow-1 md:flex-grow-0 ">
-                <div>
-                    <input class="w-full border-none font-bold black70 px-0" style="border-bottom-left-radius:0;border-bottom-right-radius: 0;"
-                    formControlName="title" name="title" type="text" maxlength="100" placeholder="Title" pInputText />
-                </div>
-                <div class="black70">
-                    {{editNoteFrom.get('createdAt')?.value | date:'short'}}
-                    <ng-container *ngIf="editNoteFrom.get('content')?.value?.trim()?.length > 0">
-                        |
-                        {{editNoteFrom.get('content')?.value?.trim()?.length}} 
-                        characters
-                    </ng-container>
-                </div>
-                <div class="flex flex-column h-full flex-grow-1 md:flex-grow-0 ">
-                    <textarea rows="50" cols="30" class="flex flex-column h-full flex-grow-1 w-full h-20rem max-h-full overflow-y-visible border-none black90 px-0"
-                    formControlName="content" name="content" placeholder="Note.." pInputTextarea [autoResize]="true">
-                    </textarea>
-                </div>
+      [style]="{width:'50rem',background:this.selectedColor}"
+      [draggable]="false">
+      <form [formGroup]="editNoteFrom" class="flex flex-column justify-content-between h-full flex-grow-1 md:flex-grow-0">
+        <div class="flex flex-column h-full flex-grow-1 md:flex-grow-0 ">
+          <div>
+            <input class="w-full border-none font-bold black70 px-0" style="border-bottom-left-radius:0;border-bottom-right-radius: 0;"
+              formControlName="title" name="title" type="text" maxlength="100" placeholder="Title" pInputText />
+          </div>
+          <div class="black70">
+            {{editNoteFrom.get('createdAt')?.value | date:'short'}}
+            @if (editNoteFrom.get('content')?.value?.trim()?.length > 0) {
+              |
+              {{editNoteFrom.get('content')?.value?.trim()?.length}}
+              characters
+            }
+          </div>
+          <div class="flex flex-column h-full flex-grow-1 md:flex-grow-0 ">
+            <textarea rows="50" cols="30" class="flex flex-column h-full flex-grow-1 w-full h-20rem max-h-full overflow-y-visible border-none black90 px-0"
+              formControlName="content" name="content" placeholder="Note.." pInputTextarea [autoResize]="true">
+            </textarea>
+          </div>
+        </div>
+        <div class="flex flex-column-reverse gap-1 pt-2 md:flex-row md:gap-4 md:p-0 md:mx-3 justify-content-end">
+          @if (isColorPicker2Open) {
+            <div pCard class="cursor-pointer flex justify-content-end align-items-center gap-2">
+              @for (color of colorList; track color; let i = $index) {
+                <span class="circle-color-icon p-ripple"
+                [style]="{'background-color':color }" (click)="changeColor(i,'editNoteForm')"></span>
+              }
             </div>
-            <div class="flex flex-column-reverse gap-1 pt-2 md:flex-row md:gap-4 md:p-0 md:mx-3 justify-content-end">
-                <div pCard *ngIf="isColorPicker2Open" class="cursor-pointer flex justify-content-end align-items-center gap-2">
-                    <span *ngFor="let color of colorList;let i= index" class="circle-color-icon p-ripple"
-                        [style]="{'background-color':color }" (click)="changeColor(i,'editNoteForm')"></span>
-                </div>
-                <div class="flex justify-content-end gap-2">
-                    <i class="pi pi-palette cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple
-                        pTooltip="Color Picker" tooltipPosition="top" (click)="openColorPicker('editNoteFrom')">
-                    </i>
-                    <i class="pi pi-bookmark-fill cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple
-                        pTooltip="Book Mark" tooltipPosition="top"
-                        [ngClass]="{'text-blue-500': editNoteFrom.get('isPinned')?.value}" (click)="togglePinned(editNoteFrom)">
-                    </i>
-                    <i class="pi pi-eraser cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple pTooltip="earse"
-                        tooltipPosition="top" (click)="clearForm(editNoteFrom)">
-                    </i>
-                    <i class="pi pi-save cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple pTooltip="Save"
-                        tooltipPosition="top" (click)="submitForm('update')">
-                    </i>
-                    <i class="pi pi-trash cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple pTooltip="Delete"
-                        tooltipPosition="top" (click)="delete(editNoteFrom.get('id')?.value)">
-                    </i>
-                </div>
-            </div>
-        </form>
+          }
+          <div class="flex justify-content-end gap-2">
+            <i class="pi pi-palette cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple
+              pTooltip="Color Picker" tooltipPosition="top" (click)="openColorPicker('editNoteFrom')">
+            </i>
+            <i class="pi pi-bookmark-fill cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple
+              pTooltip="Book Mark" tooltipPosition="top"
+              [ngClass]="{'text-blue-500': editNoteFrom.get('isPinned')?.value}" (click)="togglePinned(editNoteFrom)">
+            </i>
+            <i class="pi pi-eraser cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple pTooltip="earse"
+              tooltipPosition="top" (click)="clearForm(editNoteFrom)">
+            </i>
+            <i class="pi pi-save cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple pTooltip="Save"
+              tooltipPosition="top" (click)="submitForm('update')">
+            </i>
+            <i class="pi pi-trash cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple pTooltip="Delete"
+              tooltipPosition="top" (click)="delete(editNoteFrom.get('id')?.value)">
+            </i>
+          </div>
+        </div>
+      </form>
     </p-dialog>
     <p-dialog [(visible)]="addCollectionDialog" [modal]="true" maskStyleClass="backdrop-blur-sm" header="Colletion"  [maximizable]="true"
-        [breakpoints]="{'1199px':'75vw','575px':'90vw'}" [draggable]="false" [style]="{ width: '40rem', height:'40rem', background: this.colorList[0]}">
-        <form [formGroup]="createNewCollection">
-            <div class="flex flex-column h-full flex-grow-1 md:flex-grow-0 ">
-                <div>
-                    <input class="w-full border-none font-bold black70 px-0"
-                        style="border-bottom-left-radius:0;border-bottom-right-radius: 0;" formControlName="name"
-                        name="name" type="text" maxlength="100" placeholder="Food, Travel, Poem..." pInputText />
-                </div>
-                <div>
-                    <input class="w-full border-none font-bold black70 px-0"
-                        style="border-bottom-left-radius:0;border-bottom-right-radius: 0;" formControlName="description"
-                        name="description" type="text" maxlength="100" placeholder="Description.." pInputText />
-                </div>
-                <div class="flex justify-content-end gap-2">
-                    <i class="pi pi-eraser cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple
-                        pTooltip="earse" tooltipPosition="top" (click)="clearForm(createNewCollection)">
-                    </i>
-                    <i class="pi pi-save cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple pTooltip="Save"
-                        tooltipPosition="top" (click)="addCollection()">
-                    </i>
-                </div>
-            </div>
-        </form>
-        <div class="flex justify-content-center align-items-center">
-            <p-paginator 
-            (onPageChange)="onPageChange($event)" 
-            [first]="firstCollectionPage" 
-            [rows]="currentCollectionRow" 
-            [totalRecords]="collectionList.length" 
-            [showCurrentPageReport]="true"
-            [showPageLinks]="false"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords}"
-            />
+      [breakpoints]="{'1199px':'75vw','575px':'90vw'}" [draggable]="false" [style]="{ width: '40rem', height:'40rem', background: this.colorList[0]}">
+      <form [formGroup]="createNewCollection">
+        <div class="flex flex-column h-full flex-grow-1 md:flex-grow-0 ">
+          <div>
+            <input class="w-full border-none font-bold black70 px-0"
+              style="border-bottom-left-radius:0;border-bottom-right-radius: 0;" formControlName="name"
+              name="name" type="text" maxlength="100" placeholder="Food, Travel, Poem..." pInputText />
+          </div>
+          <div>
+            <input class="w-full border-none font-bold black70 px-0"
+              style="border-bottom-left-radius:0;border-bottom-right-radius: 0;" formControlName="description"
+              name="description" type="text" maxlength="100" placeholder="Description.." pInputText />
+          </div>
+          <div class="flex justify-content-end gap-2">
+            <i class="pi pi-eraser cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple
+              pTooltip="earse" tooltipPosition="top" (click)="clearForm(createNewCollection)">
+            </i>
+            <i class="pi pi-save cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple pTooltip="Save"
+              tooltipPosition="top" (click)="addCollection()">
+            </i>
+          </div>
         </div>
-        <div class="flex gap-1 flex-column overflow-y-visible">
-            <p-accordion [value]="accordionActiveIndex">
-                <p-accordion-panel *ngIf="paginatedCollectionList.length <= 0">
-                    <p-accordion-header>No Collection</p-accordion-header>
-                    <p>
-                        Add Collection to get started
-                    </p>
-                </p-accordion-panel>
-                <p-accordion-panel *ngFor="let collection of paginatedCollectionList">
-                    <p-accordion-header>{{collection.name}}</p-accordion-header>
-                    <div class="flex justify-content-between align-items-center mb-2">
-                        <p class="m-0 flex-grow-1">{{ collection.description }}</p>
-                        <i class="pi pi-trash cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple pTooltip="Delete"
-                        tooltipPosition="top" (click)="deleteCollection(collection)"></i>
-                    </div>
-                </p-accordion-panel>
-            </p-accordion>
-            
-        </div>
+      </form>
+      <div class="flex justify-content-center align-items-center">
+        <p-paginator
+          (onPageChange)="onPageChange($event)"
+          [first]="firstCollectionPage"
+          [rows]="currentCollectionRow"
+          [totalRecords]="collectionList.length"
+          [showCurrentPageReport]="true"
+          [showPageLinks]="false"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords}"
+          />
+      </div>
+      <div class="flex gap-1 flex-column overflow-y-visible">
+        <p-accordion [value]="accordionActiveIndex">
+          @if (paginatedCollectionList.length <= 0) {
+            <p-accordion-panel>
+              <p-accordion-header>No Collection</p-accordion-header>
+              <p>
+                Add Collection to get started
+              </p>
+            </p-accordion-panel>
+          }
+          @for (collection of paginatedCollectionList; track collection) {
+            <p-accordion-panel>
+              <p-accordion-header>{{collection.name}}</p-accordion-header>
+              <div class="flex justify-content-between align-items-center mb-2">
+                <p class="m-0 flex-grow-1">{{ collection.description }}</p>
+                <i class="pi pi-trash cursor-pointer p-ripple m-1" style="font-size: 1.2rem" pRipple pTooltip="Delete"
+                tooltipPosition="top" (click)="deleteCollection(collection)"></i>
+              </div>
+            </p-accordion-panel>
+          }
+        </p-accordion>
+
+      </div>
     </p-dialog>
-</section>
+  </section>
